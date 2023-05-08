@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		043189B02A08C46B001D7073 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043189AF2A08C46B001D7073 /* LoginView.swift */; };
+		043189B52A08CD47001D7073 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043189B42A08CD47001D7073 /* String.swift */; };
+		043189B72A08D25F001D7073 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043189B62A08D25F001D7073 /* SignUpView.swift */; };
 		2053F32729F8604B00E9925E /* TailTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053F32629F8604B00E9925E /* TailTrackApp.swift */; };
 		2053F32929F8604B00E9925E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053F32829F8604B00E9925E /* ContentView.swift */; };
 		2053F32B29F8604C00E9925E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2053F32A29F8604C00E9925E /* Assets.xcassets */; };
@@ -16,6 +18,8 @@
 
 /* Begin PBXFileReference section */
 		043189AF2A08C46B001D7073 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		043189B42A08CD47001D7073 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		043189B62A08D25F001D7073 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		2053F32329F8604B00E9925E /* TailTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TailTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2053F32629F8604B00E9925E /* TailTrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TailTrackApp.swift; sourceTree = "<group>"; };
 		2053F32829F8604B00E9925E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,8 +42,17 @@
 			isa = PBXGroup;
 			children = (
 				043189AF2A08C46B001D7073 /* LoginView.swift */,
+				043189B62A08D25F001D7073 /* SignUpView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		043189B12A08CC10001D7073 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				043189B42A08CD47001D7073 /* String.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2053F31A29F8604B00E9925E = {
@@ -61,6 +74,7 @@
 		2053F32529F8604B00E9925E /* TailTrack */ = {
 			isa = PBXGroup;
 			children = (
+				043189B12A08CC10001D7073 /* Extensions */,
 				043189AE2A08C45A001D7073 /* Views */,
 				2053F32629F8604B00E9925E /* TailTrackApp.swift */,
 				2053F32829F8604B00E9925E /* ContentView.swift */,
@@ -149,7 +163,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				043189B02A08C46B001D7073 /* LoginView.swift in Sources */,
+				043189B72A08D25F001D7073 /* SignUpView.swift in Sources */,
 				2053F32929F8604B00E9925E /* ContentView.swift in Sources */,
+				043189B52A08CD47001D7073 /* String.swift in Sources */,
 				2053F32729F8604B00E9925E /* TailTrackApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
