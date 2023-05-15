@@ -25,115 +25,124 @@ struct SignUpView: View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
             
-            VStack {
+            NavigationView {
                 
                 VStack {
                     
-                    Circle()
-                        .frame(maxWidth: 80)
-                        .padding(.top, 40)
-                    
-                    
-                    Text("Log In")
-                        .font(.title)
-                        .bold()
-                        .padding(.top, 10)
-                        .padding(.bottom, 10)
-                    
-                    Text("Selamat datang kembali!")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    
-                }
-                .padding(.bottom, 40)
-                
-                VStack (alignment: .leading) {
-                    
-                    Text("Username")
-                        .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                        .bold()
-                    
-                    HStack {
-                        Image(systemName: "mail")
-                        TextField("Username", text: $email)    // Ambil dari State di atas
+                    VStack {
                         
-                        Spacer()
+                        Circle()
+                            .frame(maxWidth: 80)
+                            .padding(.top, 40)
                         
-                        if(email.count != 0) {
-                            Image(systemName: email.isValidEmail() ?  "checkmark" : "xmark")
-                                .fontWeight(.bold)
-                                .foregroundColor(email.isValidEmail() ? .green : .red)
-                        }
+                        
+                        Text("Create an Account")
+                            .font(.title)
+                            .bold()
+                            .padding(.top, 10)
+                            .padding(.bottom, 10)
+                        
+                        Text("Selamat datang kembali!")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        
                     }
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                            .foregroundColor(.black)
-                        
-                    )
-                }
-                
-                .padding()
-                
-                VStack (alignment: .leading) {
+                    .padding(.bottom, 40)
                     
-                    Text("Password")
-                        .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                        .bold()
-                    
-                    HStack {
-                        Image(systemName: "lock")
-                        TextField("Password", text: $password)    // Ambil dari State di atas
+                    VStack (alignment: .leading) {
                         
-                        Spacer()
+                        Text("Username")
+                            .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                            .bold()
                         
-                        if(password.count >= 8) {
-                            Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")
-                                .fontWeight(.bold)
-                                .foregroundColor(isValidPassword(password) ? .green : .red)
+                        HStack {
+                            Image(systemName: "mail")
+                            TextField("Username", text: $email)    // Ambil dari State di atas
+                            
+                            Spacer()
+                            
+                            if(email.count != 0) {
+                                Image(systemName: email.isValidEmail() ?  "checkmark" : "xmark")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(email.isValidEmail() ? .green : .red)
+                            }
                         }
-                    }
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                            .foregroundColor(.black)
-                        
-                    )
-                }
-                
-                .padding()
-                
-                Button {
-                    
-                } label : {
-                    Text("Log In Nigga!")
-                        .foregroundColor(.white)
-                        .font(.title3)
-                        .bold()
-                    
-                        .frame(maxWidth: .infinity)
                         .padding()
-                    
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                                .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
+                                .foregroundColor(.black)
+                            
                         )
-                        .padding(.horizontal)
+                    }
+                    
+                    .padding()
+                    
+                    VStack (alignment: .leading) {
+                        
+                        Text("Password")
+                            .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                            .bold()
+                        
+                        HStack {
+                            Image(systemName: "lock")
+                            TextField("Password", text: $password)    // Ambil dari State di atas
+                            
+                            Spacer()
+                            
+                            if(password.count >= 8) {
+                                Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(isValidPassword(password) ? .green : .red)
+                            }
+                        }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
+                                .foregroundColor(.black)
+                            
+                        )
+                    }
+                    
+                    .padding()
+                    
+                    Button {
+                        
+                    } label : {
+                        Text("Sign Up!")
+                            .foregroundColor(.white)
+                            .font(.title3)
+                            .bold()
+                        
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                        
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                            )
+                            .padding(.horizontal)
+                    }
+                    .padding(.top)
+                    
+                    Button(action: {}) {
+                        NavigationLink(
+                            destination: LoginView()
+                                .navigationBarBackButtonHidden(true),
+                            label: {
+                                Text("Already have an account?")
+                                    .foregroundColor(.black.opacity(0.7))
+                            }
+                        )
+                    }
+                    
+                    Spacer()
+                    Spacer()
+                    
+                    
+                    
                 }
-                .padding(.top)
-                
-                Button(action: {}) {
-                    Text("Don't have an account?")
-                        .foregroundColor(.black.opacity(0.7))
-                }
-                
-                Spacer()
-                Spacer()
-                
-                
-                
             }
         }
     }
