@@ -2,7 +2,7 @@
 //  AddReportView.swift
 //  TailTrack
 //
-//  Created by MacBook Pro on 25/05/23.
+//  Created by Nael on 25/05/23.
 //
 
 import SwiftUI
@@ -161,6 +161,9 @@ struct AddReportView: View {
                         }
                         .padding(.horizontal)
                         
+                        ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
+                            AddReportView()
+                        }
                         
                     }
                 }

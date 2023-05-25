@@ -2,7 +2,7 @@
 //  String.swift
 //  TailTrack
 //
-//  Created by MacBook Pro on 08/05/23.
+//  Created by Nael on 08/05/23.
 //
 
 import Foundation
