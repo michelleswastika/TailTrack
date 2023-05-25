@@ -55,6 +55,7 @@
 		043189AE2A08C45A001D7073 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2053F32829F8604B00E9925E /* ContentView.swift */,
 				043D40752A1F0A5D00D531EF /* PageView */,
 				043D406E2A1EF1CA00D531EF /* Componenets */,
 			);
@@ -130,7 +131,6 @@
 				043189B12A08CC10001D7073 /* Extensions */,
 				043189AE2A08C45A001D7073 /* Views */,
 				2053F32629F8604B00E9925E /* TailTrackApp.swift */,
-				2053F32829F8604B00E9925E /* ContentView.swift */,
 				2053F32A29F8604C00E9925E /* Assets.xcassets */,
 				2053F32C29F8604C00E9925E /* Preview Content */,
 			);
