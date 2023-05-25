@@ -1,5 +1,5 @@
 //
-//  SignUpView.swift
+//  LoginView.swift
 //  TailTrack
 //
 //  Created by MacBook Pro on 08/05/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SignUpView: View {
+struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
@@ -29,25 +29,14 @@ struct SignUpView: View {
                 
                 VStack {
                     
-                    VStack {
-                        
-                        Circle()
-                            .frame(maxWidth: 80)
-                            .padding(.top, 40)
-                        
-                        
-                        Text("Create an Account")
-                            .font(.title)
-                            .bold()
-                            .padding(.top, 10)
-                            .padding(.bottom, 10)
-                        
-                        Text("Selamat datang kembali!")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        
-                    }
-                    .padding(.bottom, 40)
+                    
+                    //                  ========= HEADER =========
+                    
+                    Header(headerTitle: "Log In",
+                           headerSubTitle: "Selamat datang kembali, Admin!")
+                    
+                    
+                    //                  ========= KOLOM USERNAME LABEL =========
                     
                     VStack (alignment: .leading) {
                         
@@ -58,8 +47,6 @@ struct SignUpView: View {
                         HStack {
                             Image(systemName: "mail")
                             TextField("Username", text: $email)    // Ambil dari State di atas
-                            
-                            Spacer()
                             
                             if(email.count != 0) {
                                 Image(systemName: email.isValidEmail() ?  "checkmark" : "xmark")
@@ -75,8 +62,10 @@ struct SignUpView: View {
                             
                         )
                     }
+                    .padding(.horizontal)
                     
-                    .padding()
+                    
+                    //                  ========= PASSWORD LABEL =========
                     
                     VStack (alignment: .leading) {
                         
@@ -88,9 +77,7 @@ struct SignUpView: View {
                             Image(systemName: "lock")
                             TextField("Password", text: $password)    // Ambil dari State di atas
                             
-                            Spacer()
-                            
-                            if(password.count >= 8) {
+                            if(password.count >= 1) {
                                 Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")
                                     .fontWeight(.bold)
                                     .foregroundColor(isValidPassword(password) ? .green : .red)
@@ -107,39 +94,15 @@ struct SignUpView: View {
                     
                     .padding()
                     
-                    Button {
-                        
-                    } label : {
-                        Text("Sign Up!")
-                            .foregroundColor(.white)
-                            .font(.title3)
-                            .bold()
-                        
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                        
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                            )
-                            .padding(.horizontal)
-                    }
-                    .padding(.top)
                     
-                    Button(action: {}) {
-                        NavigationLink(
-                            destination: LoginView()
-                                .navigationBarBackButtonHidden(true),
-                            label: {
-                                Text("Already have an account?")
-                                    .foregroundColor(.black.opacity(0.7))
-                            }
-                        )
+                    //                  ========= LOGIN BUTTON =========
+                    
+                    ButtonDestination(buttonIcon: "", buttonText: "Log In") {
+                        AddReportView()
                     }
                     
                     Spacer()
                     Spacer()
-                    
                     
                     
                 }
@@ -148,8 +111,8 @@ struct SignUpView: View {
     }
 }
 
-struct SignUpView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        LoginView()
     }
 }
