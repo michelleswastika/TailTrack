@@ -36,10 +36,12 @@ struct Header: View {
     }
 }
 
-//struct Header_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Header()
-//    }
-//}
-
-//                               =============================   KALO MAU VIEW COMMENT 'headerTitle' SAMA 'headerSubTitle' =============================
+struct Header_Previews: PreviewProvider {
+    static var previews: some View {
+        Header(
+            headerTitle: "Header Example",
+            headerSubTitle: "This is an example of header. Halah bilang aja buat header. Iya sih :v"
+        )
+        .padding(.horizontal)
+    }
+}

@@ -46,10 +46,14 @@ struct ButtonDestination<Destination: View>: View {
 }
 
 
-//struct ButtonDestination_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ButtonDestination()
-//    }
-//}
-
-//                               =============================  KALO MAU VIEW COMMENT 'buttonIcon' & 'buttonText' & 'buttonDestination'    =============================
+struct ButtonDestination_Previews: PreviewProvider {
+    static var previews: some View {
+        ButtonDestination<Text>(
+            buttonIcon: "gear",
+            buttonText: "Button Example",
+            buttonDestination: {
+                Text("Settings View")
+            }
+        )
+    }
+}
