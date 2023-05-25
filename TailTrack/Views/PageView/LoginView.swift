@@ -29,25 +29,14 @@ struct LoginView: View {
                 
                 VStack {
                     
-                    VStack {
-                        
-                        Circle()
-                            .frame(maxWidth: 80)
-                            .padding(.top, 40)
-                        
-                        
-                        Text("Log In")
-                            .font(.title)
-                            .bold()
-                            .padding(.top, 10)
-                            .padding(.bottom, 10)
-                        
-                        Text("Selamat datang kembali!")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        
-                    }
-                    .padding(.bottom, 40)
+                    
+                    //                  ========= HEADER =========
+                    
+                    Header(headerTitle: "Log In",
+                           headerSubTitle: "Selamat datang kembali, Admin!")
+                    
+                    
+                    //                  ========= KOLOM USERNAME LABEL =========
                     
                     VStack (alignment: .leading) {
                         
@@ -73,8 +62,10 @@ struct LoginView: View {
                             
                         )
                     }
-                    
                     .padding(.horizontal)
+                    
+                    
+                    //                  ========= PASSWORD LABEL =========
                     
                     VStack (alignment: .leading) {
                         
@@ -86,7 +77,7 @@ struct LoginView: View {
                             Image(systemName: "lock")
                             TextField("Password", text: $password)    // Ambil dari State di atas
                             
-                            if(password.count >= 8) {
+                            if(password.count >= 1) {
                                 Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")
                                     .fontWeight(.bold)
                                     .foregroundColor(isValidPassword(password) ? .green : .red)
@@ -103,37 +94,47 @@ struct LoginView: View {
                     
                     .padding()
                     
+                    
+                    //                  ========= LOGIN BUTTON =========
+                    
                     VStack {
-                        // Your login UI code goes here
-                        Button(action: {
-                            // Handle login button tap here
-                        }) {
-                            Text("Log In")
-                                .foregroundColor(.white)
-                                .font(.title3)
-                                .bold()
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                                )
-                                .padding(.horizontal)
+                        
+                        Button(action: {}) {
+                            NavigationLink(
+                                destination: AddReportView()
+                                    .navigationBarBackButtonHidden(true),
+                                label: {
+                                    Text("Log In")
+                                        .foregroundColor(.white)
+                                        .font(.title3)
+                                        .bold()
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                                        )
+                                        .padding(.horizontal)
+                                }
+                            )
                         }
                         .padding(.top)
                         
                     }
                     
-                    Button(action: {}) {
-                        NavigationLink(
-                            destination: SignUpView()
-                                .navigationBarBackButtonHidden(true),
-                            label: {
-                                Text("Don't have an account?")
-                                    .foregroundColor(.black.opacity(0.7))
-                            }
-                        )
-                    }
+                    
+                    //                    ======== BUTTON NAVIGATE TO SignUpView() ========
+                    
+                    //                    Button(action: {}) {
+                    //                        NavigationLink(
+                    //                            destination: SignUpView()
+                    //                                .navigationBarBackButtonHidden(true),
+                    //                            label: {
+                    //                                Text("Don't have an account?")
+                    //                                    .foregroundColor(.black.opacity(0.7))
+                    //                            }
+                    //                        )
+                    //                    }
                     
                     Spacer()
                     Spacer()

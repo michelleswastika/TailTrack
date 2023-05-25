@@ -8,11 +8,11 @@
 import Foundation
 
 struct Laporan{
-    var namaPeliharaan : String
-    var jenisHewan : String
-    var ciriCiri : String
-    var namaPemilik : String
-    var noTelpPemilik : String
-    var lokasiTerakhir : String
-    var tanggalTerakhir : Date
+    var petName : String
+    var petType : String
+    var petCharacteristics : String
+    var petOwner : String
+    var ownersPhone : String
+    var lastLocation : String
+    var lastDate : Date
 }
