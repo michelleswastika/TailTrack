@@ -26,7 +26,7 @@ struct ReportDetailView: View {
                             .padding(.top, 15)
                             .font(.system(size: 22))
                             .frame(maxWidth: .infinity, alignment: .leading)
-//                        isi ciri-ciri
+                        //                        isi ciri-ciri
                         VStack(){
                             Text("- Berwarna putih")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -82,13 +82,17 @@ struct ReportDetailView: View {
                             .font(.system(size: 18))
                     }
                     .padding(.leading, 30)
-                    ButtonDestination(buttonIcon: "pencil", buttonText: "Ubah") {
+                    ButtonDestination(buttonIcon: "pencil", buttonText: "Simpan Laporan") {
                         HomeView()
                     }
                     .padding(.top, 70)
+                    
+                    ValidationButton(buttonIcon: "checkmark.square.fill", buttonText: "Sudah ditemukan") {
+                        HomeView()
+                    }
+                    
                     Spacer()
                 }
-//                .font(.custom("SourceSansPro"))
             }
         }
     }

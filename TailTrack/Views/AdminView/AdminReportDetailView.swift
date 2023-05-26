@@ -26,7 +26,7 @@ struct AdminReportDetailView: View {
                             .padding(.top, 15)
                             .font(.system(size: 22))
                             .frame(maxWidth: .infinity, alignment: .leading)
-            //                        isi ciri-ciri
+                        //                        isi ciri-ciri
                         VStack(){
                             Text("- Berwarna putih")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -83,19 +83,20 @@ struct AdminReportDetailView: View {
                     }
                     .padding(.leading, 30)
                 }
-                    
+                
                 ButtonDestination(buttonIcon: "xmark", buttonText: "Tolak") {
                     HomeView()
                 }
+                .padding(.top, 70)
                 
                 ValidationButton(buttonIcon: "checkmark", buttonText: "Valid") {
                     HomeView()
                 }
-                .foregroundColor(Color(UIColor(red: 0.42, green: 0.157, blue: 144, alpha: 1.00)))
-                    Spacer()
-                }
+
+                Spacer()
             }
         }
+    }
 }
 
 struct AdminReportDetailView_Previews: PreviewProvider {
