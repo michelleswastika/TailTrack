@@ -15,4 +15,6 @@ struct Laporan{
     var ownersPhone : String
     var lastLocation : String
     var lastDate : Date
+    var status : String
+    var petPhoto : String
 }
