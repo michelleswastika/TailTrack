@@ -1,14 +1,13 @@
 //
-//  HomeView.swift
+//  HomeAdminView.swift
 //  TailTrack
 //
-//  Created by Michelle Alvera on 25/05/23.
+//  Created by Michelle Alvera on 26/05/23.
 //
 
 import SwiftUI
 
-struct HomeView: View {
-    
+struct HomeAdminView: View {
     @State private var email: String = ""
     
     let countries = countryList
@@ -24,35 +23,8 @@ struct HomeView: View {
                     
                     HStack {}
                         .padding(.top)
-                        .navigationTitle("Home")
+                        .navigationTitle("Home Admin")
                         .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                NavigationLink(destination: AddReportView()) {
-                                    Image(systemName: "plus")
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                        .foregroundColor(.blue)
-                                }
-                            }
-                        }
-                    
-                    //                    Text("Home")
-                    //                        .font(.title)
-                    //                        .bold()
-                    //                        .padding(.top)
-                    //
-                    //
-                    //                    HStack {
-                    //                        Image(systemName: "plus")
-                    //                            .resizable()
-                    //                            .frame(width: 20, height: 20)
-                    //                        Text("Tambah")
-                    //                            .font(.title3)
-                    //                        Spacer()
-                    //                    }
-                    //                    .padding(.horizontal)
-                    //                    .foregroundColor(.blue)
                     
                     VStack(alignment: .leading) {
                         
@@ -96,8 +68,8 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct HomeAdminView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeAdminView()
     }
 }

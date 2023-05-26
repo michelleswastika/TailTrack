@@ -30,7 +30,7 @@ struct LandingPageView: View {
 
                     
                     ButtonDestination(buttonIcon: "person.2.fill", buttonText: "Pemilik Hewan / Sukarelawan") {
-                        LandingPageView()
+                        HomeView()
                     }
                     
                     //                  ========= ADMINISTRATOR =========

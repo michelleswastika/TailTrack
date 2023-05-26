@@ -10,6 +10,7 @@ import SwiftUI
 struct AddReportView: View {
     
     @State private var email: String = ""
+    @State private var inputImage: UIImage?
     
     var body: some View {
         
@@ -160,6 +161,10 @@ struct AddReportView: View {
                             )
                         }
                         .padding(.horizontal)
+                        
+                        ButtonDestination(buttonIcon: "camera", buttonText: "Upload Image") {
+                            ImagePickerView()
+                        }
                         
                         ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
                             AddReportView()

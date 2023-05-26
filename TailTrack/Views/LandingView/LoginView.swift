@@ -98,7 +98,7 @@ struct LoginView: View {
                     //                  ========= LOGIN BUTTON =========
                     
                     ButtonDestination(buttonIcon: "", buttonText: "Log In") {
-                        AddReportView()
+                        HomeAdminView()
                     }
                     
                     Spacer()
