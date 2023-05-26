@@ -30,6 +30,8 @@
 		2053F32E29F8604C00E9925E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2053F32D29F8604C00E9925E /* Preview Assets.xcassets */; };
 		2095B5102A209E47002E133E /* AdminReportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2095B50F2A209E47002E133E /* AdminReportDetailView.swift */; };
 		2095B5122A20A07E002E133E /* ValidationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2095B5112A20A07E002E133E /* ValidationButton.swift */; };
+		20B2927C2A20BF6A00750DF5 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2927B2A20BF6A00750DF5 /* PopUpView.swift */; };
+		20B2927E2A20C35A00750DF5 /* PopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2927D2A20C35A00750DF5 /* PopUpButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		2053F32D29F8604C00E9925E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2095B50F2A209E47002E133E /* AdminReportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminReportDetailView.swift; sourceTree = "<group>"; };
 		2095B5112A20A07E002E133E /* ValidationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationButton.swift; sourceTree = "<group>"; };
+		20B2927B2A20BF6A00750DF5 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
+		20B2927D2A20C35A00750DF5 /* PopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 				043D406F2A1EF1EB00D531EF /* CircleImage.swift */,
 				043D40732A1F081000D531EF /* Header.swift */,
 				2095B5112A20A07E002E133E /* ValidationButton.swift */,
+				20B2927D2A20C35A00750DF5 /* PopUpButton.swift */,
 			);
 			path = Componenets;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 				043D40762A1F0ABC00D531EF /* AddReportView.swift */,
 				043D407F2A1F4BB500D531EF /* HomeView.swift */,
 				204A81D22A20833700B79291 /* ReportDetailView.swift */,
+				20B2927B2A20BF6A00750DF5 /* PopUpView.swift */,
 			);
 			path = PageView;
 			sourceTree = "<group>";
@@ -269,6 +275,7 @@
 				043189B02A08C46B001D7073 /* LoginView.swift in Sources */,
 				043D40802A1F4BB500D531EF /* HomeView.swift in Sources */,
 				04C899DD2A206FE800DCD6BF /* ImagePickerViewModel.swift in Sources */,
+				20B2927E2A20C35A00750DF5 /* PopUpButton.swift in Sources */,
 				043D40792A1F2D1000D531EF /* LandingPageView.swift in Sources */,
 				204A81D32A20833700B79291 /* ReportDetailView.swift in Sources */,
 				043D407D2A1F33D900D531EF /* ButtonDestination.swift in Sources */,
@@ -277,6 +284,7 @@
 				04C347DB2A1B228D00642417 /* LaporanViewModel.swift in Sources */,
 				2053F32929F8604B00E9925E /* ContentView.swift in Sources */,
 				04C347D82A1B220100642417 /* Admin.swift in Sources */,
+				20B2927C2A20BF6A00750DF5 /* PopUpView.swift in Sources */,
 				043D40742A1F081000D531EF /* Header.swift in Sources */,
 				2095B5102A209E47002E133E /* AdminReportDetailView.swift in Sources */,
 				043D40772A1F0ABC00D531EF /* AddReportView.swift in Sources */,
