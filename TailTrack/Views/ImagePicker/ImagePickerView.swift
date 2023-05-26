@@ -30,7 +30,9 @@ struct ImagePickerView: View {
             .navigationTitle("Picker")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    PhotosPicker(selection: $imagePicker.imageSelection) {
+                    PhotosPicker(selection: $imagePicker.imageSelection,
+                                 matching: .images,
+                                 photoLibrary: .shared()) {
                         Image(systemName: "photo")
                             .imageScale(.large)
                     }

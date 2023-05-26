@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddReportView: View {
     
     @State private var email: String = ""
-    @State private var inputImage: UIImage?
+    @StateObject var imagePicker = ImagePicker()
     
     var body: some View {
         
@@ -162,8 +163,28 @@ struct AddReportView: View {
                         }
                         .padding(.horizontal)
                         
-                        ButtonDestination(buttonIcon: "camera", buttonText: "Upload Image") {
-                            ImagePickerView()
+                        VStack {
+                            
+                            if let image = imagePicker.image {
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                            } else {
+                                Text("Upload Foto")
+                            }
+                            
+                        }
+                        .padding()
+                        .navigationTitle("Picker")
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                PhotosPicker(selection: $imagePicker.imageSelection,
+                                             matching: .images,
+                                             photoLibrary: .shared()) {
+                                    Image(systemName: "photo")
+                                        .imageScale(.large)
+                                }
+                            }
                         }
                         
                         ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
