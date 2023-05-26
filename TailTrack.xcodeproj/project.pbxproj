@@ -23,6 +23,7 @@
 		04C899D72A20668700DCD6BF /* HomeAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C899D62A20668700DCD6BF /* HomeAdminView.swift */; };
 		04C899DB2A206F1C00DCD6BF /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C899DA2A206F1C00DCD6BF /* ImagePickerView.swift */; };
 		04C899DD2A206FE800DCD6BF /* ImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C899DC2A206FE800DCD6BF /* ImagePickerViewModel.swift */; };
+		204A81D32A20833700B79291 /* ReportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204A81D22A20833700B79291 /* ReportDetailView.swift */; };
 		2053F32729F8604B00E9925E /* TailTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053F32629F8604B00E9925E /* TailTrackApp.swift */; };
 		2053F32929F8604B00E9925E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053F32829F8604B00E9925E /* ContentView.swift */; };
 		2053F32B29F8604C00E9925E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2053F32A29F8604C00E9925E /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		04C899D62A20668700DCD6BF /* HomeAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdminView.swift; sourceTree = "<group>"; };
 		04C899DA2A206F1C00DCD6BF /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		04C899DC2A206FE800DCD6BF /* ImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewModel.swift; sourceTree = "<group>"; };
+		204A81D22A20833700B79291 /* ReportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailView.swift; sourceTree = "<group>"; };
 		2053F32329F8604B00E9925E /* TailTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TailTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2053F32629F8604B00E9925E /* TailTrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TailTrackApp.swift; sourceTree = "<group>"; };
 		2053F32829F8604B00E9925E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				043D40762A1F0ABC00D531EF /* AddReportView.swift */,
 				043D407F2A1F4BB500D531EF /* HomeView.swift */,
+				204A81D22A20833700B79291 /* ReportDetailView.swift */,
 			);
 			path = PageView;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				043D40802A1F4BB500D531EF /* HomeView.swift in Sources */,
 				04C899DD2A206FE800DCD6BF /* ImagePickerViewModel.swift in Sources */,
 				043D40792A1F2D1000D531EF /* LandingPageView.swift in Sources */,
+				204A81D32A20833700B79291 /* ReportDetailView.swift in Sources */,
 				043D407D2A1F33D900D531EF /* ButtonDestination.swift in Sources */,
 				043D40822A2038C700D531EF /* Dummies.swift in Sources */,
 				043189B72A08D25F001D7073 /* SignUpView.swift in Sources */,
