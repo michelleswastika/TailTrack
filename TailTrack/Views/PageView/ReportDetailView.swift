@@ -82,7 +82,7 @@ struct ReportDetailView: View {
                             .font(.system(size: 18))
                     }
                     .padding(.leading, 30)
-                    ButtonDestination(buttonIcon: "pencil", buttonText: "Simpan Laporan") {
+                    ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Simpan Laporan") {
                         HomeView()
                     }
                     .padding(.top, 70)
