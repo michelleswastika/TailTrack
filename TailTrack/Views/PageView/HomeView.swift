@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @State private var email: String = ""
+    @State private var reportViewModel = ReportViewModel()
     
     let countries = countryList
     
@@ -73,12 +74,12 @@ struct HomeView: View {
                     
                     
                     List {
-                        ForEach(countries, id: \.self) { country in
-                            NavigationLink(destination: Text(country)) {
+                        ForEach(reportViewModel.reports, id: \.self) { country in
+                            NavigationLink(destination: Text(reports.petName)) {
                                 Image("vera sip")
                                     .resizable().frame(width: 62, height: 60)
                                 VStack (alignment: .leading) {
-                                    Text(country)
+                                    Text(reports.petName)
                                     Text("Anak kucing")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
