@@ -197,7 +197,7 @@ struct AddReportView: View {
                                 PhotosPicker(selection: $imagePicker.imageSelection,
                                              matching: .images,
                                              photoLibrary: .shared()) {
-//                                    ChooseImage()
+                                    ChooseImage()
                                 }
                                              .foregroundColor(.gray)
                             }
