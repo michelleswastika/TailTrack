@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
     @MainActor class ReportViewModel: ObservableObject{
-        @Published private (set) var reports = [Report]()
+        @Published var reports = [Report]()
 //        @Published var status: String = "sedang mencari"
         
         

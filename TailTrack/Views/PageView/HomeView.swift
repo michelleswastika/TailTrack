@@ -11,10 +11,13 @@ struct HomeView: View {
     
     @State private var email: String = ""
     
+    @StateObject private var reportViewModel = ReportViewModel()
+    
     let countries = countryList
     
+    
+    
     var body: some View {
-        
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
             
@@ -73,12 +76,12 @@ struct HomeView: View {
                     
                     
                     List {
-                        ForEach(countries, id: \.self) { country in
-                            NavigationLink(destination: Text(country)) {
+                        ForEach(reportViewModel.reports, id: \.self) { report in
+                            NavigationLink(destination: Text(report.petName)) {
                                 Image("vera sip")
                                     .resizable().frame(width: 62, height: 60)
                                 VStack (alignment: .leading) {
-                                    Text(country)
+                                    Text(report.petName)
                                     Text("Anak kucing")
                                         .font(.footnote)
                                         .foregroundColor(.gray)
@@ -87,7 +90,10 @@ struct HomeView: View {
                         }
                     }
                     .listStyle(.plain)
-                    
+                    .onAppear {
+                        print("reportViewModel.reports count: \(reportViewModel.reports.count)")
+                        print(reportViewModel.reports)
+                    }
                     
                 }
             }

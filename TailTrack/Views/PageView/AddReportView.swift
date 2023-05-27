@@ -9,9 +9,13 @@ import SwiftUI
 import PhotosUI
 
 struct AddReportView: View {
+    @State private var newReport = Report.emptyReport
+    @StateObject var imagePicker = ImagePicker()
+    @StateObject private var reportViewModel = ReportViewModel()
+    
+    @State var characteristic: String = ""
     
     @State private var email: String = ""
-    @StateObject var imagePicker = ImagePicker()
     
     var body: some View {
         
@@ -36,7 +40,7 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "mail")
-                                TextField("Nama peliharaan Anda", text: $email)    // Ambil dari State di atas
+                                TextField("Nama peliharaan Anda", text: $newReport.petName)    // Ambil dari State di atas
                             }
                             .padding()
                             .background(
@@ -55,7 +59,7 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "fish")
-                                TextField("Jenis peliharaan Anda beserta breed nya", text: $email)    // Ambil dari State di atas
+                                TextField("Jenis peliharaan Anda beserta breed nya", text: $newReport.petType)    // Ambil dari State di atas
                             }
                             .padding()
                             .background(
@@ -71,21 +75,58 @@ struct AddReportView: View {
                             Text("Ciri-Ciri")
                                 .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                                 .bold()
-                            
                             HStack {
                                 Image(systemName: "list.dash")
                                 TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
-                                Image(systemName: "plus.circle.fill")
+                                Button(action:{
+                                    newReport.petCharacteristics.append(characteristic)
+                                }){
+                                    Image(systemName: "plus.circle.fill")
+                                }
+                                .tint(.black)
                             }
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
                                     .foregroundColor(.black)
-                                
                             )
+                            
+                            ForEach(newReport.petCharacteristics.indices, id: \.self) { index in
+                                HStack {
+                                    Image(systemName: "list.dash")
+                                    TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $newReport.petCharacteristics[index])
+                                    Image(systemName: "plus.circle.fill")
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
+                                        .foregroundColor(.black)
+                                )
+                            }
                         }
                         .padding(.horizontal)
+                        
+                        //                        VStack(alignment: .leading) {
+                        //                            Text("Ciri-Ciri")
+                        //                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                        //                                .bold()
+                        //
+                        //                            HStack {
+                        //                                Image(systemName: "list.dash")
+                        //                                TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
+                        //                                Image(systemName: "plus.circle.fill")
+                        //                            }
+                        //                            .padding()
+                        //                            .background(
+                        //                                RoundedRectangle(cornerRadius: 10)
+                        //                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
+                        //                                    .foregroundColor(.black)
+                        //
+                        //                            )
+                        //                        }
+                        //                        .padding(.horizontal)
                         
                         VStack(alignment: .leading) {
                             Text("Nama Pemilik")
@@ -94,7 +135,7 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "person")
-                                TextField("Nama Anda", text: $email)    // Ambil dari State di atas
+                                TextField("Nama Anda", text: $newReport.petOwner)    // Ambil dari State di atas
                             }
                             .padding()
                             .background(
@@ -113,7 +154,7 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "phone")
-                                TextField("Nomor telepon yang bisa dihubungi", text: $email)    // Ambil dari State di atas
+                                TextField("Nomor telepon yang bisa dihubungi", text: $newReport.ownersPhone)    // Ambil dari State di atas
                             }
                             .padding()
                             .background(
@@ -132,7 +173,7 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "map")
-                                TextField("Lokasi terakhir peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
+                                TextField("Lokasi terakhir peliharaan Anda terlihat", text: $newReport.lastLocation)    // Ambil dari State di atas
                             }
                             .padding()
                             .background(
@@ -151,7 +192,8 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "calendar")
-                                TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
+                                DatePicker("Kapan terakhir kali peliharaan Anda terlihat", selection: $newReport.lastDate, displayedComponents: .date)    // Exclude the time component
+                                
                             }
                             .padding()
                             .background(
@@ -205,9 +247,24 @@ struct AddReportView: View {
                         }
                         .padding()
                         
-                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
-                            HomeView()
+                        //                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
+                        //                            HomeView()
+                        //                        }
+                        ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
+                            NavigationLink(destination: AddReportView()) {
+                                HomeView() // Replace EmptyView with the desired view if needed
+                            }
+                            .onAppear {
+                                print("ButtonDestination view appeared") // Debug print statement
+                                
+                                reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "sedang menunggu", petPhoto: "s")
+                                
+                                print(reportViewModel.reports) // Debug print statement
+                                
+                                // You can add any additional logic or actions here if needed
+                            }
                         }
+                        
                         
                     }
                 }
