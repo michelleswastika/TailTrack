@@ -83,12 +83,12 @@ struct ReportDetailView: View {
                     }
                     .padding(.leading, 30)
                     ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Simpan Laporan") {
-                        HomeView()
+                        HomeView(reportLists: [Report]())
                     }
                     .padding(.top, 70)
                     
                     ValidationButton(buttonIcon: "checkmark.square.fill", buttonText: "Sudah ditemukan") {
-                        HomeView()
+                        HomeView(reportLists: [Report]())
                     }
                     
                     Spacer()

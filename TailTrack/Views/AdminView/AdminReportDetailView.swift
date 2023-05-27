@@ -85,12 +85,12 @@ struct AdminReportDetailView: View {
                 }
                 
                 ButtonDestination(buttonIcon: "xmark", buttonText: "Tolak") {
-                    HomeView()
+                    HomeView(reportLists: [Report]())
                 }
                 .padding(.top, 70)
                 
                 ValidationButton(buttonIcon: "checkmark", buttonText: "Valid") {
-                    HomeView()
+                    HomeView(reportLists: [Report]())
                 }
 
                 Spacer()

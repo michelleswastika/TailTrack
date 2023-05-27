@@ -40,12 +40,12 @@ struct PopUpView: View {
                         .padding(.top, 1)
                     
                     ButtonDestination(buttonIcon: "", buttonText: "Ya") {
-                        HomeView()
+                        HomeView(reportLists: [Report]())
                     }
                     .padding(.top, 30)
                     
                     PopUpButton(buttonIcon: "", buttonText: "Tidak"){
-                        HomeView()
+                        HomeView(reportLists: [Report]())
                     }
                     Spacer()
                 }
