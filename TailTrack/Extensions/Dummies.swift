@@ -12,5 +12,10 @@ let countryList = [
     "Doggo",
     "Amor",
     "Icel",
-    "Catty"
+    "Catty",
+    "Meow",
+    "Fishy",
+    "Nola",
+    "Yore",
+    "Klein"
 ]

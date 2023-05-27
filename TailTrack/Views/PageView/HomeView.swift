@@ -54,22 +54,22 @@ struct HomeView: View {
                     //                    .padding(.horizontal)
                     //                    .foregroundColor(.blue)
                     
-                    VStack(alignment: .leading) {
-                        
-                        HStack {
-                            TextField("Search", text: $email)
-                            Image(systemName: "magnifyingglass")
-                        }
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                .foregroundColor(.black)
-                            
-                        )
-                        .padding(.top)
-                    }
-                    .padding(.horizontal)
+//                    VStack(alignment: .leading) {
+//
+//                        HStack {
+//                            TextField("Search", text: $email)
+//                            Image(systemName: "magnifyingglass")
+//                        }
+//                        .padding()
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
+//                                .foregroundColor(.black)
+//
+//                        )
+//                        .padding(.top)
+//                    }
+//                    .padding(.horizontal)
                     
                     
                     List {

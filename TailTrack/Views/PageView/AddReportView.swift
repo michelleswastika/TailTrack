@@ -166,29 +166,47 @@ struct AddReportView: View {
                         VStack {
                             
                             if let image = imagePicker.image {
-                                image
-                                    .resizable()
-                                    .scaledToFit()
+                                PhotosPicker(selection: $imagePicker.imageSelection,
+                                             matching: .images,
+                                             photoLibrary: .shared()) {
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .overlay(
+                                            Rectangle()
+                                                .opacity(0.7)
+                                                .foregroundColor(.gray)
+                                                .overlay(
+                                                    HStack {
+                                                        Image(systemName: "pencil")
+                                                            .resizable()
+                                                            .frame(width: 20, height: 20)
+                                                            .foregroundColor(.white)
+                                                            .bold()
+                                                        Text("Edit Gambar")
+                                                            .foregroundColor(.white)
+                                                            .bold()
+                                                    }
+                                                )
+                                        )
+                                }
                             } else {
-                                Text("Upload Foto")
+                                Text("Unggah Foto Hewan")
+                                    .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                                    .bold()
+                                PhotosPicker(selection: $imagePicker.imageSelection,
+                                             matching: .images,
+                                             photoLibrary: .shared()) {
+//                                    ChooseImage()
+                                }
+                                             .foregroundColor(.gray)
                             }
                             
                         }
                         .padding()
-                        .navigationTitle("Picker")
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                PhotosPicker(selection: $imagePicker.imageSelection,
-                                             matching: .images,
-                                             photoLibrary: .shared()) {
-                                    Image(systemName: "photo")
-                                        .imageScale(.large)
-                                }
-                            }
-                        }
                         
-                        ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
-                            AddReportView()
+                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
+                            HomeView()
                         }
                         
                     }
