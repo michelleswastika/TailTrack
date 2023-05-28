@@ -22,7 +22,7 @@ struct LandingPageView: View {
                     
                     Header(
                         headerTitle: "TailTrack",
-                        headerSubTitle: "Continue as...")
+                        headerSubTitle: "Lanjut sebagai...")
                     
                     Spacer()
                     
