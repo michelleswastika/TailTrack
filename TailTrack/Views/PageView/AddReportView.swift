@@ -106,7 +106,12 @@ struct AddReportView: View {
                                         petTypeError = validationResults.errorMessage
                                         //                                        petTypeError = errorMessage
                                         
-                                        
+                                    }
+                                    .onReceive(newReport.petType.publisher.collect()) {
+                                        let trimmedText = String($0.prefix(50)) // Limit to 50 characters
+                                        if newReport.petType != trimmedText {
+                                            newReport.petType = trimmedText
+                                        }
                                     }
                                 
                             }
@@ -132,9 +137,21 @@ struct AddReportView: View {
                             Text("Ciri-Ciri")
                                 .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                                 .bold()
+//                                .onReceive(newReport.petCharacteristics.publisher.collect()) {
+//                                    let trimmedText = String($0.prefix(250)) // Limit to 50 characters
+//                                    if newReport.petCharacteristics != trimmedText {
+//                                        newReport.petCharacteristics = trimmedText
+//                                    }
+//                                }
                             HStack {
                                 Image(systemName: "list.dash")
-                                TextField("Ciri-ciri hewan peliharaan Anda", text: $email)    // Ambil dari State di atas
+                                TextField("Ciri-ciri hewan peliharaan Anda", text: $characteristic)
+                                    .onReceive(characteristic.publisher.collect()) {
+                                        let trimmedText = String($0.prefix(50)) // Limit to 50 characters
+                                        if characteristic != trimmedText {
+                                            characteristic = trimmedText
+                                        }
+                                    }
                                 Button(action:{
                                     newReport.petCharacteristics.append(characteristic)
                                 }){
@@ -153,7 +170,18 @@ struct AddReportView: View {
                                 HStack {
                                     Image(systemName: "list.dash")
                                     TextField("Ciri-ciri hewan peliharaan Anda", text: $newReport.petCharacteristics[index])
-                                    Image(systemName: "plus.circle.fill")
+                                        .onReceive(newReport.petCharacteristics[index].publisher.collect()) {
+                                            let trimmedText = String($0.prefix(50)) // Limit to 50 characters
+                                            if newReport.petCharacteristics[index] != trimmedText {
+                                                newReport.petCharacteristics[index] = trimmedText
+                                            }
+                                        }
+                                    Button(action:{
+                                        newReport.petCharacteristics.append(characteristic)
+                                    }){
+                                        Image(systemName: "plus.circle.fill")
+                                    }
+                                    .tint(.black)
                                 }
                                 .padding()
                                 .background(
@@ -192,7 +220,13 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "person")
-                                TextField("Nama Anda", text: $newReport.petOwner)    // Ambil dari State di atas
+                                TextField("Nama Anda", text: $newReport.petOwner)
+                                    .onReceive(newReport.petOwner.publisher.collect()) {
+                                        let trimmedText = String($0.prefix(50)) // Limit to 50 characters
+                                        if newReport.petOwner != trimmedText {
+                                            newReport.petOwner = trimmedText
+                                        }
+                                    }
                             }
                             .padding()
                             .background(
@@ -254,7 +288,13 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "map")
-                                TextField("Lokasi terakhir peliharaan Anda terlihat", text: $newReport.lastLocation)    // Ambil dari State di atas
+                                TextField("Lokasi terakhir peliharaan Anda terlihat", text: $newReport.lastLocation)
+                                    .onReceive(newReport.lastLocation.publisher.collect()) {
+                                        let trimmedText = String($0.prefix(250)) // Limit to 50 characters
+                                        if newReport.lastLocation != trimmedText {
+                                            newReport.lastLocation = trimmedText
+                                        }
+                                    }
                             }
                             .padding()
                             .background(
@@ -336,19 +376,25 @@ struct AddReportView: View {
                         
                         ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
                              NavigationLink(destination: AddReportView()) { // Replace NavigationLink with sheet
-                                 PopUpView()
+                                 
+                                 PopUpView(newReport: newReport)
                                      .navigationBarHidden(isShowingPopup)
+                                 
                              }
+                            
 //                            isShowingPopup.toggle() // Set isShowingPopup to true to present the popup
+                            
                         }
-                        .onAppear {
-                            print("ButtonDestination view appeared") // Debug print statement
-
-                            reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "menunggu validasi", petPhoto: "s")
-
-                            print(reportViewModel.reports) // Debug print statement
-
-                        }
+                        
+//                        .onAppear {
+//                            print("ButtonDestination view appeared") // Debug print statement
+//
+//                            reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "menunggu validasi", petPhoto: "s")
+//
+//                            print(reportViewModel.reports) // Debug print statement
+//
+//                        }
+                        
 //                        .sheet(isPresented: $isShowingPopup) {
 //                            PopUpView()
 //                                .navigationBarHidden(true)

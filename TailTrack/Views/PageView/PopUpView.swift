@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct PopUpView: View {
+    
+    let newReport : Report
+    
+    @StateObject private var reportViewModel = ReportViewModel()
+    
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
@@ -43,6 +48,12 @@ struct PopUpView: View {
                         HomeView()
                     }
                     .padding(.top, 30)
+                    .onAppear{
+                        reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "menunggu validasi", petPhoto: "s")
+                        print(reportViewModel.reports)
+                        print("count \(reportViewModel.reports.count)")
+                        
+                    }
                     
                     PopUpButton(buttonIcon: "", buttonText: "Tidak"){
                         HomeView()
@@ -66,6 +77,6 @@ struct PopUpView: View {
 
 struct PopUpView_Previews: PreviewProvider {
     static var previews: some View {
-        PopUpView()
+        PopUpView(newReport: Report.emptyReport)
     }
 }
