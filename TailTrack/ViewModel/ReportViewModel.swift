@@ -15,12 +15,13 @@ import SwiftUI
         func validateTextField(_ newValue: String)-> (isValid: Bool, errorMessage: String){
             let emojiInside = newValue.containsEmoji
             let itIsEmpty = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-//            var isTextFieldValid: Bool = true
-//            var errorMessage: String = ""
+            let phoneInvalid = newValue.starts(with: "62")
             
             if emojiInside || itIsEmpty.isEmpty {
-                return (false, emojiInside ? "Text field cannot contain emojis." : "Text field cannot be empty.")
-            } else {
+                return (false, emojiInside ? "Jenis Hewan Tidak Valid." : "Invalid Input.")
+            } else if phoneInvalid {
+                return (false, "Phone Invalid")
+            }else {
                 return (true, "")
             }
         }
@@ -29,16 +30,33 @@ import SwiftUI
             print("inside validate fields")
                 let valueResult = validateTextField(newValue)
 //                let petTypeResults = validateTextField(petType)
-                
+
                 if !valueResult.isValid {
                     print("error message:", valueResult.errorMessage)
                     return (false, valueResult.errorMessage)
-                    print("after return error message")
+//                    print("after return error message")
                 } else {
                     print("no error message :D")
                     return (true, "")
                 }
             }
+        
+//        func validateFields(_ newValue: String) {
+//            let petNameResults = validateTextField(newReport.petName)
+//            let petTypeResults = validateTextField(newReport.petType)
+//            
+//            if !petNameResults.isValid {
+//                isTextFieldValid = false
+//                errorMessage = petNameResults.errorMessage
+//            } else if !petTypeResults.isValid {
+//                isTextFieldValid = false
+//                errorMessage = petTypeResults.errorMessage
+//            } else {
+//                isTextFieldValid = true
+//                errorMessage = ""
+//            }
+//        }
+
         
         
         func addReport(petName: String, petType: String, petCharacteristics: Array<String>, petOwner: String, ownersPhone: String, lastLocation: String, lastDate: Date, status: String, petPhoto: String){

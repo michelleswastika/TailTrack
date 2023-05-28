@@ -9,7 +9,11 @@ import SwiftUI
 import PhotosUI
 
 struct AddReportView: View {
-    @State private var errorMessage: String = ""
+    //    message error declaration
+    @State private var petNameError: String = ""
+    @State private var petTypeError: String = ""
+    @State private var ownerPhoneError: String = ""
+    
     @State private var isTextFieldValid: Bool = true
     
     @State private var newReport = Report.emptyReport
@@ -37,21 +41,23 @@ struct AddReportView: View {
                         Header(headerTitle: "Lapor Kehilangan", headerSubTitle: "Silakan isi laporan di bawah ini")
                         
                         VStack(alignment: .leading) {
+                            
                             Text("Nama Peliharaan")
                                 .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                                 .bold()
-                            
                             HStack {
                                 Image(systemName: "mail")
                                 TextField("Nama peliharaan Anda", text: $newReport.petName)
                                     .onChange(of: newReport.petName){ newValue in
-                                        let validationResults1 = reportViewModel.validateTextField(newValue)
-                                        isTextFieldValid = validationResults1.isValid
-                                        errorMessage = validationResults1.errorMessage
-                                        //                                        let validationResults =
-                                        //                                        reportViewModel.validateFields(newValue)
-                                        //                                        isTextFieldValid = validationResults.isValid
-                                        //                                        errorMessage = validationResults.errorMessage
+                                        //                                        let validationResults1 = reportViewModel.validateTextField(newValue)
+                                        //                                        petNameTextField = validationResults1.isValid
+                                        //                                        errorMessagePetName = validationResults1.errorMessage
+                                        //                                        print("valid gk?", petNameTextField)
+                                        let validationResults =
+                                        reportViewModel.validateFields(newValue)
+                                        isTextFieldValid = validationResults.isValid
+                                        petNameError = validationResults.errorMessage
+                                        //                                        petNameError = errorMessage
                                     }
                                 
                                 //                                receive max 50 karakter
@@ -71,7 +77,7 @@ struct AddReportView: View {
                             )
                             
                             if !isTextFieldValid {
-                                Text(errorMessage)
+                                Text(petNameError)
                                     .foregroundColor(.red)
                                     .font(.footnote)
                                     .padding(.top, 4)
@@ -95,7 +101,8 @@ struct AddReportView: View {
                                         
                                         let validationResults = reportViewModel.validateFields(newValue)
                                         isTextFieldValid = validationResults.isValid
-                                        errorMessage = validationResults.errorMessage
+                                        petTypeError = validationResults.errorMessage
+                                        //                                        petTypeError = errorMessage
                                         
                                         
                                     }
@@ -110,7 +117,7 @@ struct AddReportView: View {
                             )
                             
                             if !isTextFieldValid {
-                                Text(errorMessage)
+                                Text(petTypeError)
                                     .foregroundColor(.red)
                                     .font(.footnote)
                                     .padding(.top, 4)
@@ -204,6 +211,16 @@ struct AddReportView: View {
                                 Image(systemName: "phone")
                                 TextField("Nomor telepon yang bisa dihubungi", text: $newReport.ownersPhone)
                                     .keyboardType(.numberPad)
+                                    .onChange(of: newReport.ownersPhone){ newValue in
+                                        
+                                        let validationResults = reportViewModel.validateFields(newValue)
+                                        isTextFieldValid = validationResults.isValid
+                                        ownerPhoneError = validationResults.errorMessage
+                                        //                                        petTypeError = errorMessage
+                                        
+                                        
+                                    }
+                                
                             }
                             .padding()
                             .background(
@@ -212,6 +229,19 @@ struct AddReportView: View {
                                     .foregroundColor(.black)
                                 
                             )
+                            //                                receive max 10 karakter
+                            .onReceive(newReport.ownersPhone.publisher.collect()) {
+                                let trimmedText = String($0.prefix(10)) // Limit to 50 characters
+                                if newReport.ownersPhone != trimmedText {
+                                    newReport.ownersPhone = trimmedText
+                                }
+                            }
+                            if !isTextFieldValid {
+                                Text(ownerPhoneError)
+                                    .foregroundColor(.red)
+                                    .font(.footnote)
+                                    .padding(.top, 4)
+                            }
                         }
                         .padding(.horizontal)
                         
