@@ -51,6 +51,9 @@ struct HomeAdminView: View {
                                     .resizable().frame(width: 62, height: 60)
                                 VStack (alignment: .leading) {
                                     Text(country)
+                                        .fontWeight(.semibold)
+                                        .padding(.bottom, 1.0)
+                                        
                                     Text("Anak kucing")
                                         .font(.footnote)
                                         .foregroundColor(.gray)

@@ -12,6 +12,7 @@ struct AddReportView: View {
     
     @State private var email: String = ""
     @StateObject var imagePicker = ImagePicker()
+    @State private var showingAlert = false
     
     var body: some View {
         
@@ -37,6 +38,8 @@ struct AddReportView: View {
                             HStack {
                                 Image(systemName: "mail")
                                 TextField("Nama peliharaan Anda", text: $email)    // Ambil dari State di atas
+                                    .keyboardType(.asciiCapable)
+                                    .autocorrectionDisabled(true)
                             }
                             .padding()
                             .background(
@@ -46,7 +49,7 @@ struct AddReportView: View {
                                 
                             )
                         }
-                        .padding(.horizontal)
+                        .padding([.leading, .bottom, .trailing])
                         
                         VStack(alignment: .leading) {
                             Text("Jenis Hewan")
@@ -56,6 +59,8 @@ struct AddReportView: View {
                             HStack {
                                 Image(systemName: "fish")
                                 TextField("Jenis peliharaan Anda beserta breed nya", text: $email)    // Ambil dari State di atas
+                                    .keyboardType(.asciiCapable)
+                                    .autocorrectionDisabled(true)
                             }
                             .padding()
                             .background(
@@ -65,7 +70,7 @@ struct AddReportView: View {
                                 
                             )
                         }
-                        .padding(.horizontal)
+                        .padding([.leading, .bottom, .trailing])
                         
                         VStack(alignment: .leading) {
                             Text("Ciri-Ciri")
@@ -74,7 +79,9 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "list.dash")
-                                TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
+                                TextField("Rupa peliharaan Anda terakhir kali", text: $email)    // Ambil dari State di atas
+                                    .keyboardType(.asciiCapable)
+                                    .autocorrectionDisabled(true)
                                 Image(systemName: "plus.circle.fill")
                             }
                             .padding()
@@ -85,7 +92,7 @@ struct AddReportView: View {
                                 
                             )
                         }
-                        .padding(.horizontal)
+                        .padding([.leading, .bottom, .trailing])
                         
                         VStack(alignment: .leading) {
                             Text("Nama Pemilik")
@@ -95,6 +102,8 @@ struct AddReportView: View {
                             HStack {
                                 Image(systemName: "person")
                                 TextField("Nama Anda", text: $email)    // Ambil dari State di atas
+                                    .keyboardType(.asciiCapable)
+                                    .autocorrectionDisabled(true)
                             }
                             .padding()
                             .background(
@@ -104,7 +113,7 @@ struct AddReportView: View {
                                 
                             )
                         }
-                        .padding(.horizontal)
+                        .padding([.leading, .bottom, .trailing])
                         
                         VStack(alignment: .leading) {
                             Text("Nomor Telepon")
@@ -114,6 +123,8 @@ struct AddReportView: View {
                             HStack {
                                 Image(systemName: "phone")
                                 TextField("Nomor telepon yang bisa dihubungi", text: $email)    // Ambil dari State di atas
+                                    .keyboardType(.phonePad)
+                                    .autocorrectionDisabled(true)
                             }
                             .padding()
                             .background(
@@ -123,7 +134,7 @@ struct AddReportView: View {
                                 
                             )
                         }
-                        .padding(.horizontal)
+                        .padding([.leading, .bottom, .trailing])
                         
                         VStack(alignment: .leading) {
                             Text("Lokasi Terakhir Dilihat")
@@ -133,6 +144,8 @@ struct AddReportView: View {
                             HStack {
                                 Image(systemName: "map")
                                 TextField("Lokasi terakhir peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
+                                    .keyboardType(.asciiCapable)
+                                    .autocorrectionDisabled(true)
                             }
                             .padding()
                             .background(
@@ -142,7 +155,7 @@ struct AddReportView: View {
                                 
                             )
                         }
-                        .padding(.horizontal)
+                        .padding([.leading, .bottom, .trailing])
                         
                         VStack(alignment: .leading) {
                             Text("Tanggal Terakhir Dilihat")
@@ -151,7 +164,9 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "calendar")
-                                TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
+                                TextField("DD/MM/YYYY", text: $email)    // Ambil dari State di atas
+                                    .keyboardType(.numbersAndPunctuation)
+                                    .autocorrectionDisabled(true)
                             }
                             .padding()
                             .background(
@@ -161,10 +176,9 @@ struct AddReportView: View {
                                 
                             )
                         }
-                        .padding(.horizontal)
+                        .padding([.leading, .bottom, .trailing])
                         
                         VStack {
-                            
                             if let image = imagePicker.image {
                                 PhotosPicker(selection: $imagePicker.imageSelection,
                                              matching: .images,
@@ -193,6 +207,7 @@ struct AddReportView: View {
                             } else {
                                 Text("Unggah Foto Hewan")
                                     .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                                    .multilineTextAlignment(.leading)
                                     .bold()
                                 PhotosPicker(selection: $imagePicker.imageSelection,
                                              matching: .images,
@@ -203,13 +218,34 @@ struct AddReportView: View {
                             }
                             
                         }
-                        .padding()
+                        .padding(.bottom)
                         
-                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
-                            HomeView()
+                        //Copy of ButtonDestination but with no Destination, if user choose "Ya" then it will be directed to HomeView()
+                        Button(action: { showingAlert = true }){
+                            HStack {
+                                Image(systemName: "arrow.up.doc.fill")
+                                Text("Ajukan Laporan")
+                            }
+                            .foregroundColor(.white)
+                            .font(.title3)
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                            )
+                            .padding(.horizontal)
                         }
-                        
+                        .padding(.top)
+                        .alert(isPresented: $showingAlert){
+                            Alert(title: Text("Konfirmasi Laporan"),
+                                  message: Text("Apakah Anda yakin ingin mengajukan laporan ini?"),primaryButton: .default(Text("Ya"), action: {
+                                HomeView()
+                            }), secondaryButton: .destructive(Text("Tidak")))
+                        }
                     }
+                    .padding()
                 }
             }
         }

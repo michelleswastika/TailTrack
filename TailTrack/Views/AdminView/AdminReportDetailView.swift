@@ -82,15 +82,16 @@ struct AdminReportDetailView: View {
                             .font(.system(size: 18))
                     }
                     .padding(.leading, 30)
+                    //Fotonya belum
                 }
                 
                 ButtonDestination(buttonIcon: "xmark", buttonText: "Tolak") {
-                    HomeView()
+                    HomeAdminView()
                 }
                 .padding(.top, 70)
                 
                 ValidationButton(buttonIcon: "checkmark", buttonText: "Valid") {
-                    HomeView()
+                    HomeAdminView()
                 }
 
                 Spacer()

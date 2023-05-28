@@ -32,7 +32,7 @@ struct HomeView: View {
                                     Image(systemName: "plus")
                                         .resizable()
                                         .frame(width: 20, height: 20)
-                                        .foregroundColor(.blue)
+                                        .foregroundColor(.black)
                                 }
                             }
                         }
@@ -79,6 +79,8 @@ struct HomeView: View {
                                     .resizable().frame(width: 62, height: 60)
                                 VStack (alignment: .leading) {
                                     Text(country)
+                                        .fontWeight(.semibold)
+                                        .padding(.bottom, 1.0)
                                     Text("Anak kucing")
                                         .font(.footnote)
                                         .foregroundColor(.gray)

@@ -33,20 +33,23 @@ struct LoginView: View {
                     //                  ========= HEADER =========
                     
                     Header(headerTitle: "Log In",
-                           headerSubTitle: "Selamat datang kembali, Admin!")
+                           headerSubTitle: "Selamat datang kembali!")
                     
                     
                     //                  ========= KOLOM USERNAME LABEL =========
                     
                     VStack (alignment: .leading) {
                         
-                        Text("Username")
+                        Text("Email")
                             .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                             .bold()
                         
                         HStack {
                             Image(systemName: "mail")
-                            TextField("Username", text: $email)    // Ambil dari State di atas
+                            TextField("Email Anda", text: $email) // Ambil dari State di atas
+                                .keyboardType(/*@START_MENU_TOKEN@*/.asciiCapable/*@END_MENU_TOKEN@*/) //Avoid suggestions
+                                .autocorrectionDisabled(true)
+                                .textInputAutocapitalization(.never)
                             
                             if(email.count != 0) {
                                 Image(systemName: email.isValidEmail() ?  "checkmark" : "xmark")
@@ -75,7 +78,9 @@ struct LoginView: View {
                         
                         HStack {
                             Image(systemName: "lock")
-                            TextField("Password", text: $password)    // Ambil dari State di atas
+                            SecureField("Password Anda", text: $password) // Ambil dari State di atas
+                                .keyboardType(/*@START_MENU_TOKEN@*/.asciiCapable/*@END_MENU_TOKEN@*/)
+                                .autocorrectionDisabled(true)
                             
                             if(password.count >= 1) {
                                 Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")

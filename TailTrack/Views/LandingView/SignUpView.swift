@@ -36,13 +36,13 @@ struct SignUpView: View {
                             .padding(.top, 40)
                         
                         
-                        Text("Create an Account")
+                        Text("Registrasi")
                             .font(.title)
                             .bold()
                             .padding(.top, 10)
                             .padding(.bottom, 10)
                         
-                        Text("Selamat datang kembali!")
+                        Text("Silakan buat akun baru!")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                         
@@ -51,14 +51,16 @@ struct SignUpView: View {
                     
                     VStack (alignment: .leading) {
                         
-                        Text("Username")
+                        Text("Email")
                             .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                             .bold()
                         
                         HStack {
                             Image(systemName: "mail")
-                            TextField("Username", text: $email)    // Ambil dari State di atas
-                            
+                            TextField("Email Anda", text: $email)    // Ambil dari State di atas
+                                .keyboardType(.asciiCapable)
+                                .autocorrectionDisabled(true)
+                                .textInputAutocapitalization(.never)
                             Spacer()
                             
                             if(email.count != 0) {
@@ -86,7 +88,9 @@ struct SignUpView: View {
                         
                         HStack {
                             Image(systemName: "lock")
-                            TextField("Password", text: $password)    // Ambil dari State di atas
+                            SecureField("Password Anda", text: $password) // Ambil dari State di atas
+                                .keyboardType(/*@START_MENU_TOKEN@*/.asciiCapable/*@END_MENU_TOKEN@*/)
+                                .autocorrectionDisabled(true)
                             
                             Spacer()
                             
@@ -107,7 +111,7 @@ struct SignUpView: View {
                     
                     .padding()
                     
-                    ButtonDestination(buttonIcon: "", buttonText: "Sign Up!") {
+                    ButtonDestination(buttonIcon: "", buttonText: "Registrasi") {
                         LandingPageView()
                     }
                     
@@ -116,7 +120,7 @@ struct SignUpView: View {
                             destination: LoginView()
                                 .navigationBarBackButtonHidden(true),
                             label: {
-                                Text("Already have an account?")
+                                Text("Sudah punya akun?")
                                     .foregroundColor(.black.opacity(0.7))
                             }
                         )

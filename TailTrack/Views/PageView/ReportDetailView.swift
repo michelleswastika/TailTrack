@@ -26,7 +26,7 @@ struct ReportDetailView: View {
                             .padding(.top, 15)
                             .font(.system(size: 22))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        //                        isi ciri-ciri
+                        //                        isi ciri-ciri pakai list for each
                         VStack(){
                             Text("- Berwarna putih")
                                 .frame(maxWidth: .infinity, alignment: .leading)
