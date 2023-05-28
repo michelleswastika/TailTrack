@@ -25,6 +25,22 @@ import SwiftUI
             }
         }
         
+        func validateFields(_ newValue: String) -> (isValid: Bool, errorMessage: String) {
+            print("inside validate fields")
+                let valueResult = validateTextField(newValue)
+//                let petTypeResults = validateTextField(petType)
+                
+                if !valueResult.isValid {
+                    print("error message:", valueResult.errorMessage)
+                    return (false, valueResult.errorMessage)
+                    print("after return error message")
+                } else {
+                    print("no error message :D")
+                    return (true, "")
+                }
+            }
+        
+        
         func addReport(petName: String, petType: String, petCharacteristics: Array<String>, petOwner: String, ownersPhone: String, lastLocation: String, lastDate: Date, status: String, petPhoto: String){
             let newReport = Report(petName: petName, petType: petType, petCharacteristics: petCharacteristics, petOwner: petOwner, ownersPhone: ownersPhone, lastLocation: lastLocation, lastDate: lastDate, status: status, petPhoto: petPhoto)
             reports.append(newReport)

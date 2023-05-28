@@ -43,7 +43,24 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "mail")
-                                TextField("Nama peliharaan Anda", text: $newReport.petName)    // Ambil dari State di atas
+                                TextField("Nama peliharaan Anda", text: $newReport.petName)
+                                    .onChange(of: newReport.petName){ newValue in
+                                        let validationResults1 = reportViewModel.validateTextField(newValue)
+                                        isTextFieldValid = validationResults1.isValid
+                                        errorMessage = validationResults1.errorMessage
+                                        //                                        let validationResults =
+                                        //                                        reportViewModel.validateFields(newValue)
+                                        //                                        isTextFieldValid = validationResults.isValid
+                                        //                                        errorMessage = validationResults.errorMessage
+                                    }
+                                
+                                //                                receive max 50 karakter
+                                    .onReceive(newReport.petName.publisher.collect()) {
+                                        let trimmedText = String($0.prefix(50)) // Limit to 50 characters
+                                        if newReport.petName != trimmedText {
+                                            newReport.petName = trimmedText
+                                        }
+                                    }
                             }
                             .padding()
                             .background(
@@ -52,6 +69,13 @@ struct AddReportView: View {
                                     .foregroundColor(.black)
                                 
                             )
+                            
+                            if !isTextFieldValid {
+                                Text(errorMessage)
+                                    .foregroundColor(.red)
+                                    .font(.footnote)
+                                    .padding(.top, 4)
+                            }
                         }
                         .padding(.horizontal)
                         
@@ -62,22 +86,19 @@ struct AddReportView: View {
                                 .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                                 .bold()
                             
+                            
                             HStack {
                                 Image(systemName: "fish")
                                 TextField("Jenis peliharaan Anda beserta breed nya", text: $newReport.petType)
                                     .onChange(of: newReport.petType){ newValue in
-                                        let validationResults = reportViewModel.validateTextField(newValue)
+                                        //                                        let validationResults = reportViewModel.validateTextField(newValue)
+                                        
+                                        let validationResults = reportViewModel.validateFields(newValue)
                                         isTextFieldValid = validationResults.isValid
                                         errorMessage = validationResults.errorMessage
                                         
                                         
                                     }
-                                if !isTextFieldValid {
-                                    Text(errorMessage)
-                                        .foregroundColor(.red)
-                                        .font(.footnote)
-                                        .padding(.top, 4)
-                                }
                                 
                             }
                             .padding()
@@ -87,6 +108,13 @@ struct AddReportView: View {
                                     .foregroundColor(.black)
                                 
                             )
+                            
+                            if !isTextFieldValid {
+                                Text(errorMessage)
+                                    .foregroundColor(.red)
+                                    .font(.footnote)
+                                    .padding(.top, 4)
+                            }
                         }
                         .padding(.horizontal)
                         
