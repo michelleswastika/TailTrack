@@ -9,6 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct AddReportView: View {
+    @State private var errorMessage: String = ""
+    @State private var isTextFieldValid: Bool = true
+    
     @State private var newReport = Report.emptyReport
     @StateObject var imagePicker = ImagePicker()
     @StateObject private var reportViewModel = ReportViewModel()
@@ -52,6 +55,8 @@ struct AddReportView: View {
                         }
                         .padding(.horizontal)
                         
+                        
+                        
                         VStack(alignment: .leading) {
                             Text("Jenis Hewan")
                                 .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
@@ -59,7 +64,21 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "fish")
-                                TextField("Jenis peliharaan Anda beserta breed nya", text: $newReport.petType)    // Ambil dari State di atas
+                                TextField("Jenis peliharaan Anda beserta breed nya", text: $newReport.petType)
+                                    .onChange(of: newReport.petType){ newValue in
+                                        let validationResults = reportViewModel.validateTextField(newValue)
+                                        isTextFieldValid = validationResults.isValid
+                                        errorMessage = validationResults.errorMessage
+                                        
+                                        
+                                    }
+                                if !isTextFieldValid {
+                                    Text(errorMessage)
+                                        .foregroundColor(.red)
+                                        .font(.footnote)
+                                        .padding(.top, 4)
+                                }
+                                
                             }
                             .padding()
                             .background(
@@ -71,13 +90,14 @@ struct AddReportView: View {
                         }
                         .padding(.horizontal)
                         
+                        
                         VStack(alignment: .leading) {
                             Text("Ciri-Ciri")
                                 .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                                 .bold()
                             HStack {
                                 Image(systemName: "list.dash")
-                                TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
+                                TextField("Ciri-ciri hewan peliharaan Anda", text: $email)    // Ambil dari State di atas
                                 Button(action:{
                                     newReport.petCharacteristics.append(characteristic)
                                 }){
@@ -95,7 +115,7 @@ struct AddReportView: View {
                             ForEach(newReport.petCharacteristics.indices, id: \.self) { index in
                                 HStack {
                                     Image(systemName: "list.dash")
-                                    TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $newReport.petCharacteristics[index])
+                                    TextField("Ciri-ciri hewan peliharaan Anda", text: $newReport.petCharacteristics[index])
                                     Image(systemName: "plus.circle.fill")
                                 }
                                 .padding()
@@ -154,7 +174,8 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "phone")
-                                TextField("Nomor telepon yang bisa dihubungi", text: $newReport.ownersPhone)    // Ambil dari State di atas
+                                TextField("Nomor telepon yang bisa dihubungi", text: $newReport.ownersPhone)
+                                    .keyboardType(.numberPad)
                             }
                             .padding()
                             .background(
