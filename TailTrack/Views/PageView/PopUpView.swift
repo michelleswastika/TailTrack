@@ -48,9 +48,19 @@ struct PopUpView: View {
                         HomeView()
                     }
                     Spacer()
+                    
                 }
+                
+//                .frame(maxHeight: 400)
+//                .border(Color.white, width: 2)
+//                .background(.yellow)
             }
+            
         }
+        
+//        .frame(maxHeight: 400)
+//        .border(Color.white, width: 2)
+//        .background(.yellow)
     }
 }
 

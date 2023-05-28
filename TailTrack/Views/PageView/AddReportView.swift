@@ -24,6 +24,8 @@ struct AddReportView: View {
     
     @State private var email: String = ""
     
+    @State private var isShowingPopup: Bool = true
+    
     var body: some View {
         
         ZStack {
@@ -54,7 +56,7 @@ struct AddReportView: View {
                                         //                                        errorMessagePetName = validationResults1.errorMessage
                                         //                                        print("valid gk?", petNameTextField)
                                         let validationResults =
-                                        reportViewModel.validateFields(newValue)
+                                        reportViewModel.validateTextField(newValue)
                                         isTextFieldValid = validationResults.isValid
                                         petNameError = validationResults.errorMessage
                                         //                                        petNameError = errorMessage
@@ -99,7 +101,7 @@ struct AddReportView: View {
                                     .onChange(of: newReport.petType){ newValue in
                                         //                                        let validationResults = reportViewModel.validateTextField(newValue)
                                         
-                                        let validationResults = reportViewModel.validateFields(newValue)
+                                        let validationResults = reportViewModel.validateTextField(newValue)
                                         isTextFieldValid = validationResults.isValid
                                         petTypeError = validationResults.errorMessage
                                         //                                        petTypeError = errorMessage
@@ -213,7 +215,7 @@ struct AddReportView: View {
                                     .keyboardType(.numberPad)
                                     .onChange(of: newReport.ownersPhone){ newValue in
                                         
-                                        let validationResults = reportViewModel.validateFields(newValue)
+                                        let validationResults = reportViewModel.validateTextField(newValue)
                                         isTextFieldValid = validationResults.isValid
                                         ownerPhoneError = validationResults.errorMessage
                                         //                                        petTypeError = errorMessage
@@ -271,7 +273,8 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "calendar")
-                                DatePicker("Kapan terakhir kali peliharaan Anda terlihat", selection: $newReport.lastDate, displayedComponents: .date)    // Exclude the time component
+                                DatePicker("Kapan terakhir kali peliharaan Anda terlihat", selection: $newReport.lastDate,
+                                           in: ...Date(), displayedComponents: .date)    // Exclude the time component
                                 
                             }
                             .padding()
@@ -329,29 +332,54 @@ struct AddReportView: View {
                         //                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
                         //                            HomeView()
                         //                        }
+                        
+                        
                         ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
-                            NavigationLink(destination: AddReportView()) {
-                                HomeView() // Replace EmptyView with the desired view if needed
-                            }
-                            .onAppear {
-                                print("ButtonDestination view appeared") // Debug print statement
-                                
-                                reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "sedang menunggu", petPhoto: "s")
-                                
-                                print(reportViewModel.reports) // Debug print statement
-                                
-                                // You can add any additional logic or actions here if needed
-                            }
+                             NavigationLink(destination: AddReportView()) { // Replace NavigationLink with sheet
+                                 PopUpView()
+                                     .navigationBarHidden(isShowingPopup)
+                             }
+//                            isShowingPopup.toggle() // Set isShowingPopup to true to present the popup
                         }
+                        .onAppear {
+                            print("ButtonDestination view appeared") // Debug print statement
+
+                            reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "menunggu validasi", petPhoto: "s")
+
+                            print(reportViewModel.reports) // Debug print statement
+
+                        }
+//                        .sheet(isPresented: $isShowingPopup) {
+//                            PopUpView()
+//                                .navigationBarHidden(true)
+//                        }
                         
                         
+//                        ButtonDestination(action: {
+//                            isShowingPopup = true
+//                        }) {
+//                            HStack {
+//                                Image(systemName: "newspaper.fill")
+//                                Text("Ajukan Laporan")
+//                            }
+//                        }
+//                        .background(NavigationLink(destination: PopUpView(), isActive: $isShowingPopup) {  })
+//                        .onAppear {
+//                            print("ButtonDestination view appeared") // Debug print statement
+//                            reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "menunggu validasi", petPhoto: "s")
+//                            print(reportViewModel.reports) // Debug print statement
+//                        }
+
                     }
+                    
+                    
                 }
             }
         }
-        
     }
+    
 }
+
 
 struct AddReportView_Previews: PreviewProvider {
     static var previews: some View {
