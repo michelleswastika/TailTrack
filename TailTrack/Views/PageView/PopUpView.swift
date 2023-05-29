@@ -9,7 +9,6 @@
 //
 //struct PopUpView: View {
 //
-<<<<<<< Updated upstream
 
 import SwiftUI
 
@@ -65,7 +64,6 @@ struct PopUpView_Previews: PreviewProvider {
         PopUpView()
     }
 }
-=======
 //    let newReport : Report
 //
 //    @StateObject private var reportViewModel = ReportViewModel()
@@ -138,4 +136,3 @@ struct PopUpView_Previews: PreviewProvider {
 //        PopUpView()
 //    }
 //}
->>>>>>> Stashed changes
