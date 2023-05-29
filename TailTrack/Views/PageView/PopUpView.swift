@@ -1,13 +1,8 @@
-////
-////  PopUpView.swift
-////  TailTrack
-////
-////  Created by Michelle Swastika on 26/05/23.
-////
 //
-//import SwiftUI
+//  PopUpView.swift
+//  TailTrack
 //
-//struct PopUpView: View {
+//  Created by Michelle Swastika on 26/05/23.
 //
 
 import SwiftUI
