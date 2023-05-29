@@ -9,8 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct AddReportView: View {
-<<<<<<< Updated upstream
-=======
+    
     //    message error declaration
     @State private var petNameError: String = ""
     @State private var petTypeError: String = ""
@@ -24,10 +23,6 @@ struct AddReportView: View {
     @StateObject private var reportViewModel = ReportViewModel()
     
     @State var characteristic: String = ""
->>>>>>> Stashed changes
-    
-    @State private var email: String = ""
-    @StateObject var imagePicker = ImagePicker()
     
     //    @StateObject private var reportViewModel = ReportViewModel()
     @State private var newPetName = ""
@@ -62,13 +57,9 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "mail")
-<<<<<<< Updated upstream
-                                TextField("Nama peliharaan Anda", text: $email)    // Ambil dari State di atas
-=======
                                 TextField("Nama peliharaan Anda", text: $newPetName)
                                     .keyboardType(.asciiCapable)
                                     .autocorrectionDisabled(true)
->>>>>>> Stashed changes
                             }
                             .padding()
                             .background(
@@ -87,13 +78,9 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "fish")
-<<<<<<< Updated upstream
-                                TextField("Jenis peliharaan Anda beserta breed nya", text: $email)    // Ambil dari State di atas
-=======
                                 TextField("Jenis peliharaan Anda beserta breed nya", text: $newPetType)
                                     .keyboardType(.asciiCapable)
                                     .autocorrectionDisabled(true)
->>>>>>> Stashed changes
                             }
                             .padding()
                             .background(
@@ -104,28 +91,6 @@ struct AddReportView: View {
                             )
                         }
                         .padding(.horizontal)
-                        
-<<<<<<< Updated upstream
-                        VStack(alignment: .leading) {
-                            Text("Ciri-Ciri")
-                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                                .bold()
-                            
-                            HStack {
-                                Image(systemName: "list.dash")
-                                TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
-                                Image(systemName: "plus.circle.fill")
-                            }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                    .foregroundColor(.black)
-                                
-                            )
-                        }
-                        .padding(.horizontal)
-=======
                         
                         //                        VStack(alignment: .leading) {
                         //                            Text("Ciri-Ciri")
@@ -172,7 +137,6 @@ struct AddReportView: View {
                         //                            }
                         //                        }
                         //                        .padding(.horizontal)
->>>>>>> Stashed changes
                         
                         VStack(alignment: .leading) {
                             Text("Nama Pemilik")
@@ -181,13 +145,9 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "person")
-<<<<<<< Updated upstream
-                                TextField("Nama Anda", text: $email)    // Ambil dari State di atas
-=======
                                 TextField("Nama Anda", text: $newPetOwner)
                                     .keyboardType(.asciiCapable)
                                     .autocorrectionDisabled(true)
->>>>>>> Stashed changes
                             }
                             .padding()
                             .background(
@@ -206,13 +166,9 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "phone")
-<<<<<<< Updated upstream
-                                TextField("Nomor telepon yang bisa dihubungi", text: $email)    // Ambil dari State di atas
-=======
                                 TextField("Nomor telepon yang bisa dihubungi", text: $newOwnersPhone)
                                     .keyboardType(.phonePad)
                                     .autocorrectionDisabled(true)
->>>>>>> Stashed changes
                             }
                             .padding()
                             .background(
@@ -231,13 +187,9 @@ struct AddReportView: View {
                             
                             HStack {
                                 Image(systemName: "map")
-<<<<<<< Updated upstream
-                                TextField("Lokasi terakhir peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
-=======
                                 TextField("Lokasi terakhir peliharaan Anda terlihat", text: $newLastLocation)
                                     .keyboardType(.asciiCapable)
                                     .autocorrectionDisabled(true)
->>>>>>> Stashed changes
                             }
                             .padding()
                             .background(
@@ -249,26 +201,6 @@ struct AddReportView: View {
                         }
                         .padding(.horizontal)
                         
-<<<<<<< Updated upstream
-                        VStack(alignment: .leading) {
-                            Text("Tanggal Terakhir Dilihat")
-                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                                .bold()
-                            
-                            HStack {
-                                Image(systemName: "calendar")
-                                TextField("Kapan terakhir kali peliharaan Anda terlihat", text: $email)    // Ambil dari State di atas
-                            }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                    .foregroundColor(.black)
-                                
-                            )
-                        }
-                        .padding(.horizontal)
-=======
                         //                        VStack(alignment: .leading) {
                         //                            Text("Tanggal Terakhir Dilihat")
                         //                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
@@ -289,7 +221,6 @@ struct AddReportView: View {
                         //                            )
                         //                        }
                         //                        .padding(.horizontal)
->>>>>>> Stashed changes
                         
                         //                        VStack {
                         //
@@ -333,13 +264,6 @@ struct AddReportView: View {
                         //                        }
                         //                        .padding()
                         
-<<<<<<< Updated upstream
-                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
-                            HomeView()
-                        }
-                        
-                    }
-=======
                         //                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
                         //                            HomeView()
                         //                        }
@@ -349,7 +273,7 @@ struct AddReportView: View {
                         //                        }
                         
                         Button("Add Item") {
-//                            reportViewModel.addReport(petName: newPetName, petType: newPetType, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation)
+                            //                            reportViewModel.addReport(petName: newPetName, petType: newPetType, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation)
                             showingAlert = true
                         }
                         .foregroundColor(.white)
@@ -403,7 +327,6 @@ struct AddReportView: View {
                     //                            print(reportViewModel.reports) // Debug print statement
                     //                        }
                     
->>>>>>> Stashed changes
                 }
                 
                 
@@ -413,11 +336,6 @@ struct AddReportView: View {
     }
 }
 
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
 struct AddReportView_Previews: PreviewProvider {
     static var previews: some View {
         AddReportView()

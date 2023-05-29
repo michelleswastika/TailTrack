@@ -1,15 +1,9 @@
-////
-////  PopUpView.swift
-////  TailTrack
-////
-////  Created by Michelle Swastika on 26/05/23.
-////
 //
-//import SwiftUI
+//  PopUpView.swift
+//  TailTrack
 //
-//struct PopUpView: View {
+//  Created by Michelle Swastika on 26/05/23.
 //
-<<<<<<< Updated upstream
 
 import SwiftUI
 
@@ -65,7 +59,6 @@ struct PopUpView_Previews: PreviewProvider {
         PopUpView()
     }
 }
-=======
 //    let newReport : Report
 //
 //    @StateObject private var reportViewModel = ReportViewModel()
@@ -138,4 +131,3 @@ struct PopUpView_Previews: PreviewProvider {
 //        PopUpView()
 //    }
 //}
->>>>>>> Stashed changes

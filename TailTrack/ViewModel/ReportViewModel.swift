@@ -22,21 +22,21 @@ import SwiftUI
             }
         }
         
-        func validateTextField(_ newValue: String)-> (isValid: Bool, errorMessage: String){
-            let emojiInside = newValue.containsEmoji
-            let itIsEmpty = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            let phoneInvalid = newValue.starts(with: "62")
-            
-            if emojiInside {
-                return (false, "Jenis Hewan Tidak Valid.")
-            } else if itIsEmpty.isEmpty{
-                return (false, "Invalid Input.")
-            }else if phoneInvalid {
-                return (false, "Phone Invalid.")
-            }else {
-                return (true, "")
-            }
-        }
+//        func validateTextField(_ newValue: String)-> (isValid: Bool, errorMessage: String){
+//            let emojiInside = newValue.containsEmoji
+//            let itIsEmpty = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+//            let phoneInvalid = newValue.starts(with: "62")
+//
+//            if emojiInside {
+//                return (false, "Jenis Hewan Tidak Valid.")
+//            } else if itIsEmpty.isEmpty{
+//                return (false, "Invalid Input.")
+//            }else if phoneInvalid {
+//                return (false, "Phone Invalid.")
+//            }else {
+//                return (true, "")
+//            }
+//        }
         
         func addReport(petName: String, petType: String, petOwner: String, ownersPhone: String, lastLocation: String) {
             firestoreServices.addReport(petName: petName, petType: petType, petOwner: petOwner, ownersPhone: ownersPhone, lastLocation: lastLocation)

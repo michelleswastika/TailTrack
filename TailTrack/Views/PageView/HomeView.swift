@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    
-<<<<<<< Updated upstream
     @State private var email: String = ""
     
     let countries = countryList
-=======
     @StateObject private var reportViewModel = ReportViewModel()
     
     //    let countries = countryList   =====> Dummy Data
->>>>>>> Stashed changes
     
     var body: some View {
         
@@ -43,7 +39,6 @@ struct HomeView: View {
                             }
                         }
                     
-<<<<<<< Updated upstream
                     //                    Text("Home")
                     //                        .font(.title)
                     //                        .bold()
@@ -78,24 +73,6 @@ struct HomeView: View {
 //                    }
 //                    .padding(.horizontal)
                     
-                    
-                    List {
-                        ForEach(countries, id: \.self) { country in
-                            NavigationLink(destination: Text(country)) {
-                                Image("vera sip")
-                                    .resizable().frame(width: 62, height: 60)
-                                VStack (alignment: .leading) {
-                                    Text(country)
-                                    Text("Anak kucing")
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                }
-                            }.padding()
-                        }
-                    }
-                    .listStyle(.plain)
-                    
-=======
                     List(reportViewModel.reports) { report in
                         NavigationLink(destination: Text(report.petName)) {
                             Image("vera sip")
@@ -112,7 +89,6 @@ struct HomeView: View {
                     .onAppear {
                         reportViewModel.fetchItems()
                     }
->>>>>>> Stashed changes
                     
                 }
             }
