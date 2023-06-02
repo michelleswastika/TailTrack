@@ -14,9 +14,11 @@ struct ButtonAction: View {
     
     var newPetName: String
     var newPetType: String
+    var newPetCharacteristics: [String]
     var newPetOwner: String
     var newOwnersPhone: String
     var newLastLocation: String
+    var newLastDate: Date
     
     var body: some View {
         //Copy of ButtonDestination but with no Destination, if user choose "Ya" then it will be directed to HomeView()
@@ -42,7 +44,7 @@ struct ButtonAction: View {
                 .alert(isPresented: $showingAlert){
                     Alert(title: Text("Konfirmasi Laporan"),
                           message: Text("Apakah Anda yakin ingin mengajukan laporan ini?"),primaryButton: .default(Text("Ya"), action: {
-                        reportViewModel.addReport(petName: newPetName, petType: newPetType, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation)
+                        reportViewModel.addReport(petName: newPetName, petType: newPetType, petCharacteristics: newPetCharacteristics, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation, lastDate: newLastDate, status: "Menunggu validasi", imageIdentifier: "")
                     }), secondaryButton: .destructive(Text("Tidak")))
                 }
         }
