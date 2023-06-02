@@ -38,8 +38,16 @@ import SwiftUI
 //            }
 //        }
         
-        func addReport(petName: String, petType: String, petOwner: String, ownersPhone: String, lastLocation: String) {
-            firestoreServices.addReport(petName: petName, petType: petType, petOwner: petOwner, ownersPhone: ownersPhone, lastLocation: lastLocation)
+        func addReport(
+            petName: String,
+            petType: String,
+            petCharacteristics: [String],
+            petOwner: String, ownersPhone: String,
+            lastLocation: String,
+            lastDate: Date,
+            status: String,
+            imageIdentifier: String) {
+                firestoreServices.addReport(petName: petName, petType: petType, petCharacteristics: petCharacteristics, petOwner: petOwner, ownersPhone: ownersPhone, lastLocation: lastLocation, lastDate: lastDate, status: status, imageIdentifier: imageIdentifier)
             }
         
 //        func validateFields(_ newValue: String) -> (isValid: Bool, errorMessage: String) {
