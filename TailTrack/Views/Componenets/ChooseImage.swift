@@ -16,7 +16,7 @@ struct ChooseImage: View {
                     .overlay(
                         HStack {
                             Image(systemName: "doc.badge.plus")
-                            Text("Unggah Gambar")
+                            Text("Unggah Gambar ukuran 1:1")
                                 .foregroundColor(.black)
                                 .font(.subheadline)
                         }.padding(.horizontal, 5)

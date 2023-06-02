@@ -7,6 +7,8 @@
 
 import SwiftUI
 import PhotosUI
+import Firebase
+import FirebaseFirestore
 
 struct AddReportView: View {
     
@@ -17,6 +19,8 @@ struct AddReportView: View {
     @State private var showingAlert: Bool = false
     
     @State private var isTextFieldValid: Bool = true
+    @State private var uploadInProgress = false
+    //    @State private var shouldNavigateToHome = false
     
     //    @State private var newReport = Report.emptyReport
     @StateObject var imagePicker = ImagePicker()
@@ -27,19 +31,20 @@ struct AddReportView: View {
     //    @StateObject private var reportViewModel = ReportViewModel()
     @State private var newPetName = ""
     @State private var newPetType = ""
-    @State private var newPetCharacteristics = ""
+    @State private var newPetCharacteristics: [String] = []
     @State private var newPetOwner = ""
     @State private var newOwnersPhone = ""
     @State private var newLastLocation = ""
-    @State private var newLastDate = ""
+    @State private var newLastDate = Date()
     @State private var newStatus = ""
+    @State private var vStackCount: Int = 1
     
     var body: some View {
         
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
             
-            NavigationView {
+            NavigationStack {
                 
                 ScrollView {
                     
@@ -50,219 +55,130 @@ struct AddReportView: View {
                         
                         Header(headerTitle: "Lapor Kehilangan", headerSubTitle: "Silakan isi laporan di bawah ini")
                         
-                        VStack(alignment: .leading) {
-                            Text("Nama Peliharaan")
+                        Placeholder(
+                            placeholderTitle: "Nama Peliharaan",
+                            placeholderIcon: "mail",
+                            placeholderDescription: "Nama peliharaan Anda",
+                            placeholderText: $newPetName)
+                        
+                        Placeholder(
+                            placeholderTitle: "Jenis Hewan",
+                            placeholderIcon: "fish",
+                            placeholderDescription: "Jenis peliharaan Anda beserta breed nya",
+                            placeholderText: $newPetType)
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Ciri-Ciri:")
                                 .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                                 .bold()
                             
-                            HStack {
-                                Image(systemName: "mail")
-                                TextField("Nama peliharaan Anda", text: $newPetName)
-                                    .keyboardType(.asciiCapable)
-                                    .autocorrectionDisabled(true)
+                            ForEach(0..<vStackCount, id: \.self) { index in
+                                VStack {
+                                    HStack {
+                                        Image(systemName: "list.dash")
+                                        TextField("Ciri-ciri hewan peliharaan Anda", text: Binding(
+                                            get: {
+                                                index < newPetCharacteristics.count ? newPetCharacteristics[index] : ""
+                                            },
+                                            set: { newValue in
+                                                if index < newPetCharacteristics.count {
+                                                    newPetCharacteristics[index] = newValue
+                                                }
+                                            }
+                                        ))
+                                        .keyboardType(.phonePad)
+                                        .autocorrectionDisabled(true)
+                                        
+                                        if index == vStackCount - 1 {
+                                            Button(action: {
+                                                vStackCount += 1
+                                                addCharacteristic()
+                                            }) {
+                                                Image(systemName: "plus.circle.fill")
+                                                    .foregroundColor(.black)
+                                            }
+                                        }
+                                    }
+                                    .padding()
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
+                                            .foregroundColor(.black)
+                                    )
+                                }
                             }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                    .foregroundColor(.black)
-                                
-                            )
                         }
                         .padding(.horizontal)
+                        .onAppear {
+                            if newPetCharacteristics.isEmpty {
+                                addCharacteristic()
+                            }
+                        }
                         
-                        VStack(alignment: .leading) {
-                            Text("Jenis Hewan")
-                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                                .bold()
+                        Placeholder(
+                            placeholderTitle: "Nama Pemilik",
+                            placeholderIcon: "person",
+                            placeholderDescription: "Nama Anda",
+                            placeholderText: $newPetOwner)
+                        
+                        Placeholder(
+                            placeholderTitle: "Nomor Telepon",
+                            placeholderIcon: "phone",
+                            placeholderDescription: "Nomor telepon yang bisa dihubungi",
+                            placeholderText: $newOwnersPhone)
+                        
+                        Placeholder(
+                            placeholderTitle: "Lokasi Terakhir Dilihat",
+                            placeholderIcon: "map",
+                            placeholderDescription: "Lokasi terakhir peliharaan Anda terlihat",
+                            placeholderText: $newLastLocation)
+                        
+                        PlaceholderDate(
+                            placeholderTitle: "Tanggal Terakhir Dilihat",
+                            placeholderIcon: "calendar",
+                            placeholderText: $newLastDate)
+                        
+                        VStack {
                             
-                            HStack {
-                                Image(systemName: "fish")
-                                TextField("Jenis peliharaan Anda beserta breed nya", text: $newPetType)
-                                    .keyboardType(.asciiCapable)
-                                    .autocorrectionDisabled(true)
+                            if let image = imagePicker.image {
+                                PhotosPicker(selection: $imagePicker.imageSelection,
+                                             matching: .images,
+                                             photoLibrary: .shared()) {
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .overlay(
+                                            Rectangle()
+                                                .opacity(0.7)
+                                                .foregroundColor(.gray)
+                                                .overlay(
+                                                    HStack {
+                                                        Image(systemName: "pencil")
+                                                            .resizable()
+                                                            .frame(width: 20, height: 20)
+                                                            .foregroundColor(.white)
+                                                            .bold()
+                                                        Text("Edit Gambar")
+                                                            .foregroundColor(.white)
+                                                            .bold()
+                                                    }
+                                                )
+                                        )
+                                }
+                            } else {
+                                Text("Unggah Foto Hewan")
+                                    .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
+                                    .bold()
+                                PhotosPicker(selection: $imagePicker.imageSelection,
+                                             matching: .images,
+                                             photoLibrary: .shared()) {
+                                    ChooseImage()
+                                }
+                                             .foregroundColor(.gray)
                             }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                    .foregroundColor(.black)
-                                
-                            )
-                        }
-                        .padding(.horizontal)
-                        
-                        //                        VStack(alignment: .leading) {
-                        //                            Text("Ciri-Ciri")
-                        //                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                        //                                .bold()
-                        //                            HStack {
-                        //                                Image(systemName: "list.dash")
-                        //                                ForEach(0..<Int(3) ?? 0, id: \.self) { index in
-                        //                                    TextField("Ciri-ciri hewan peliharaan Anda", text: $newPetCharacteristics[index])
-                        //                                }
-                        //
-                        //                                Button(action: {
-                        //
-                        //                                }) {
-                        //                                    Image(systemName: "plus.circle.fill")
-                        //                                }
-                        //                                .tint(.black)
-                        //                            }
-                        //                            .padding()
-                        //                            .background(
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                        //                                    .foregroundColor(.black)
-                        //                            )
-                        
-                        
-                        //                            ForEach(newReport.petCharacteristics.indices, id: \.self) { index in
-                        //                                HStack {
-                        //                                    Image(systemName: "list.dash")
-                        //                                    TextField("Ciri-ciri hewan peliharaan Anda", text: $newReport.petCharacteristics[index])
-                        //                                    Button(action:{
-                        //                                        newReport.petCharacteristics.append(characteristic)
-                        //                                    }){
-                        //                                        Image(systemName: "plus.circle.fill")
-                        //                                    }
-                        //                                    .tint(.black)
-                        //                                }
-                        //                                .padding()
-                        //                                .background(
-                        //                                    RoundedRectangle(cornerRadius: 10)
-                        //                                        .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                        //                                        .foregroundColor(.black)
-                        //                                )
-                        //                            }
-                        //                        }
-                        //                        .padding(.horizontal)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Nama Pemilik")
-                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                                .bold()
                             
-                            HStack {
-                                Image(systemName: "person")
-                                TextField("Nama Anda", text: $newPetOwner)
-                                    .keyboardType(.asciiCapable)
-                                    .autocorrectionDisabled(true)
-                            }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                    .foregroundColor(.black)
-                                
-                            )
                         }
-                        .padding(.horizontal)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Nomor Telepon")
-                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                                .bold()
-                            
-                            HStack {
-                                Image(systemName: "phone")
-                                TextField("Nomor telepon yang bisa dihubungi", text: $newOwnersPhone)
-                                    .keyboardType(.phonePad)
-                                    .autocorrectionDisabled(true)
-                            }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                    .foregroundColor(.black)
-                                
-                            )
-                        }
-                        .padding(.horizontal)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Lokasi Terakhir Dilihat")
-                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                                .bold()
-                            
-                            HStack {
-                                Image(systemName: "map")
-                                TextField("Lokasi terakhir peliharaan Anda terlihat", text: $newLastLocation)
-                                    .keyboardType(.asciiCapable)
-                                    .autocorrectionDisabled(true)
-                            }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                                    .foregroundColor(.black)
-                                
-                            )
-                        }
-                        .padding(.horizontal)
-                        
-                        //                        VStack(alignment: .leading) {
-                        //                            Text("Tanggal Terakhir Dilihat")
-                        //                                .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                        //                                .bold()
-                        //
-                        //                            HStack {
-                        //                                Image(systemName: "calendar")
-                        //                                DatePicker("DD/MM/YYYY", selection: $newLastDate,
-                        //                                           in: ...Date(), displayedComponents: .date)    // Exclude the time component
-                        //
-                        //                            }
-                        //                            .padding()
-                        //                            .background(
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)))
-                        //                                    .foregroundColor(.black)
-                        //
-                        //                            )
-                        //                        }
-                        //                        .padding(.horizontal)
-                        
-                        //                        VStack {
-                        //
-                        //                            if let image = imagePicker.image {
-                        //                                PhotosPicker(selection: $imagePicker.imageSelection,
-                        //                                             matching: .images,
-                        //                                             photoLibrary: .shared()) {
-                        //                                    image
-                        //                                        .resizable()
-                        //                                        .scaledToFit()
-                        //                                        .overlay(
-                        //                                            Rectangle()
-                        //                                                .opacity(0.7)
-                        //                                                .foregroundColor(.gray)
-                        //                                                .overlay(
-                        //                                                    HStack {
-                        //                                                        Image(systemName: "pencil")
-                        //                                                            .resizable()
-                        //                                                            .frame(width: 20, height: 20)
-                        //                                                            .foregroundColor(.white)
-                        //                                                            .bold()
-                        //                                                        Text("Edit Gambar")
-                        //                                                            .foregroundColor(.white)
-                        //                                                            .bold()
-                        //                                                    }
-                        //                                                )
-                        //                                        )
-                        //                                }
-                        //                            } else {
-                        //                                Text("Unggah Foto Hewan")
-                        //                                    .foregroundColor(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
-                        //                                    .bold()
-                        //                                PhotosPicker(selection: $imagePicker.imageSelection,
-                        //                                             matching: .images,
-                        //                                             photoLibrary: .shared()) {
-                        //                                    ChooseImage()
-                        //                                }
-                        //                                             .foregroundColor(.gray)
-                        //                            }
-                        //
-                        //                        }
-                        //                        .padding()
+                        .padding()
                         
                         //                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
                         //                            HomeView()
@@ -273,7 +189,6 @@ struct AddReportView: View {
                         //                        }
                         
                         Button("Add Item") {
-                            //                            reportViewModel.addReport(petName: newPetName, petType: newPetType, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation)
                             showingAlert = true
                         }
                         .foregroundColor(.white)
@@ -285,47 +200,40 @@ struct AddReportView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color(UIColor(red: 0.91, green: 0.44, blue: 0.32, alpha: 1.00)))
                         )
+                        .padding(.top, 14)
                         .padding(.horizontal)
-                        .alert(isPresented: $showingAlert){
-                            Alert(title: Text("Konfirmasi Laporan"),
-                                  message: Text("Apakah Anda yakin ingin mengajukan laporan ini?"),
-                                  primaryButton: .default(Text("Ya"),action: {
-                                reportViewModel.addReport(petName: newPetName, petType: newPetType, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation)}), secondaryButton: .destructive(Text("Tidak")))
+                        .disabled(uploadInProgress)  // Add disabled state based on uploadInProgress flag
+                        .alert(isPresented: $showingAlert) {
+                            Alert(
+                                title: Text("Konfirmasi Laporan"),
+                                message: Text("Apakah Anda yakin ingin mengajukan laporan ini?"),
+                                primaryButton: .default(Text("Ya")) {
+                                    Task {
+                                        uploadInProgress = true  // Set uploadInProgress flag to true
+                                        
+                                        if imagePicker.imageSelection != nil {
+                                            await imagePicker.uploadImage(imageIdentifier: imagePicker.imageIdentifier ?? "") { result in
+                                                switch result {
+                                                case .success:
+                                                    reportViewModel.addReport(petName: newPetName, petType: newPetType, petCharacteristics: newPetCharacteristics, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation, lastDate: newLastDate, status: "Menunggu validasi", imageIdentifier: imagePicker.imageIdentifier ?? "")
+                                                case .failure(let error):
+                                                    print("Failed to upload image: \(error.localizedDescription)")
+                                                }
+                                                
+                                                uploadInProgress = false  // Set uploadInProgress flag to false after upload is completed
+                                            }
+                                        } else {
+                                            reportViewModel.addReport(petName: newPetName, petType: newPetType, petCharacteristics: newPetCharacteristics, petOwner: newPetOwner, ownersPhone: newOwnersPhone, lastLocation: newLastLocation, lastDate: newLastDate, status: "Menunggu validasi", imageIdentifier: imagePicker.imageIdentifier ?? "")
+                                            uploadInProgress = false  // Set uploadInProgress flag to false
+                                        }
+                                    }
+                                },
+                                secondaryButton: .destructive(Text("Tidak"))
+                            )
                         }
-                        
-                        //                            isShowingPopup.toggle() // Set isShowingPopup to true to present the popup
+
                         
                     }
-                    
-                    //                        .onAppear {
-                    //                            print("ButtonDestination view appeared") // Debug print statement
-                    //
-                    //                            reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "menunggu validasi", petPhoto: "s")
-                    //
-                    //                            print(reportViewModel.reports) // Debug print statement
-                    //
-                    //                        }
-                    
-                    //                        .sheet(isPresented: $isShowingPopup) {
-                    //                            PopUpView()
-                    //                                .navigationBarHidden(true)
-                    //                        }
-                    
-                    
-                    //                        ButtonDestination(action: {
-                    //                            isShowingPopup = true
-                    //                        }) {
-                    //                            HStack {
-                    //                                Image(systemName: "newspaper.fill")
-                    //                                Text("Ajukan Laporan")
-                    //                            }
-                    //                        }
-                    //                        .background(NavigationLink(destination: PopUpView(), isActive: $isShowingPopup) {  })
-                    //                        .onAppear {
-                    //                            print("ButtonDestination view appeared") // Debug print statement
-                    //                            reportViewModel.addReport(petName: newReport.petName, petType: newReport.petType, petCharacteristics: newReport.petCharacteristics, petOwner: newReport.petOwner, ownersPhone: newReport.ownersPhone, lastLocation: newReport.lastLocation, lastDate: newReport.lastDate, status: "menunggu validasi", petPhoto: "s")
-                    //                            print(reportViewModel.reports) // Debug print statement
-                    //                        }
                     
                 }
                 
@@ -334,6 +242,11 @@ struct AddReportView: View {
         }
         
     }
+    
+    private func addCharacteristic() {
+        newPetCharacteristics.append("")
+    }
+    
 }
 
 struct AddReportView_Previews: PreviewProvider {

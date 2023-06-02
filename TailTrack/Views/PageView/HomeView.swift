@@ -74,12 +74,12 @@ struct HomeView: View {
 //                    .padding(.horizontal)
                     
                     List(reportViewModel.reports) { report in
-                        NavigationLink(destination: Text(report.petName)) {
+                        NavigationLink(destination: ReportDetailView(report: report)) {
                             Image("vera sip")
                                 .resizable().frame(width: 62, height: 60)
                             VStack (alignment: .leading) {
                                 Text(report.petName)
-                                Text(report.petType)
+                                Text(report.petType + " milik " + report.petOwner)
                                     .font(.footnote)
                                     .foregroundColor(.gray)
                             }
