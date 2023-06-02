@@ -7,6 +7,7 @@
 
 //import Foundation
 import SwiftUI
+import Firebase
 
 struct Report: Identifiable {
     var id: String // Unique identifier
@@ -17,8 +18,10 @@ struct Report: Identifiable {
     var petOwner: String
     var ownersPhone: String
     var lastLocation: String
+    var timestamp: Timestamp
     var lastDate: Date
     var status: String
+    let imageIdentifier: String?
 //    var petPhoto: String
 }
 
