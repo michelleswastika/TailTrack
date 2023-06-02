@@ -6,100 +6,171 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
 
 struct ReportDetailView: View {
+    
+    let report: Report
+    @State private var imageURL: URL? = nil
+    
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
             NavigationStack {
-                VStack {
-                    Text("Keiko")
-                        .font(.title)
-                        .bold()
-                    Text("Anjing Pomeranian")
-                        .padding(.top, 1)
-                        .padding(.bottom, 15)
-                        .foregroundColor(.gray)
-                    VStack(){
-                        Text("Ciri-ciri :")
+                ScrollView {
+                    VStack {
+                        Text(report.petName)
+                            .font(.title)
                             .bold()
-                            .padding(.top, 15)
-                            .font(.system(size: 22))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        //                        isi ciri-ciri
-                        VStack(){
-                            Text("- Berwarna putih")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Text("- Berat 10 kg")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Text("- Ada kalung nama berwarna hitam")
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(report.petType)
+                            .padding(.top, 1)
+                            .padding(.bottom, 15)
+                            .foregroundColor(.gray)
+                        
+                        
+                        //    PET PICTURES
+                        
+                        if let imageURL = imageURL {
+                            AsyncImage(url: imageURL) { phase in
+                                switch phase {
+                                case .empty:
+                                    // Placeholder or loading view
+                                    ProgressView()
+                                case .success(let image):
+                                    // Display the image
+                                    image
+                                        .resizable()
+                                        .frame( width: 220, height: 220)
+                                        
+                                case .failure:
+                                    // Error view or fallback image
+                                    // Display an error message or a placeholder/fallback image
+                                    Text("Failed to load image")
+                                @unknown default:
+                                    // Handle future cases if needed
+                                    Text("Failed to load image")
+                                }
+                            }
+                        } else {
+                            Text("No image available")
                         }
-                        .font(.system(size: 18))
-                    }
-                    .padding(.leading, 30)
-                    VStack(){
-                        Text("Nama pemilik :")
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 15)
-                            .font(.system(size: 22))
-                        Text("Nael")
-                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                        
+//                        Image("vera sip")
+//                            .resizable()
+//                            .frame(width: 220, height: 220)
+                        
+                        
+                        //    PET CHARACTERISTICS
+                        
+                        VStack(){
+                            Text("Ciri-ciri :")
+                                .bold()
+                                .padding(.top, 15)
+                                .font(.system(size: 22))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            VStack(){
+                                ForEach(report.petCharacteristics, id: \.self) { petCharacteristic in
+                                    Text("• " + petCharacteristic)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                            }
                             .font(.system(size: 18))
+                        }
+                        .padding(.leading, 30)
+                        
+                        VStack {
+                            //    OWNER'S NAME
+                            
+                            DetailContent(
+                                contentTitle: "Nama pemilik:",
+                                contentText: report.petOwner)
+                            
+                            
+                            //     PHONE NUMBER
+                            
+                            DetailContent(
+                                contentTitle: "Nomor relepon pemilik:",
+                                contentText: report.ownersPhone)
+                            
+                            
+                            //     LAST LOCATION
+                            
+                            DetailContent(
+                                contentTitle: "Lokasi terakhir dilihat:",
+                                contentText: report.lastLocation)
+                            
+                            
+                            //     LAST DATE
+                            
+                            DetailContent(
+                                contentTitle: "Tanggal terakhir dilihat:",
+                                contentText: formatTimestamp(report.timestamp) ?? "")
+                            
+                            //     STATUS
+                            
+                            DetailContent(
+                                contentTitle: "Status:",
+                                contentText: report.status)
+                        }
+                        
+                        VStack {
+                            
+                            ValidationButton(buttonIcon: "checkmark.square.fill", buttonText: "Sudah ditemukan") {
+                                HomeView()
+                            }
+                        }
+                        .padding(.top, 30)
+                        
+                        Spacer()
                     }
-                    .padding(.leading, 30)
-                    VStack(){
-                        Text("Nomor telepon pemilik :")
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 15)
-                            .font(.system(size: 22))
-                        Text("08123456789")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.system(size: 18))
-                    }
-                    .padding(.leading, 30)
-                    VStack(){
-                        Text("Lokasi terakhir terlihat :")
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 15)
-                            .font(.system(size: 22))
-                        Text("Perumahan Waterfront Citraland WP 50")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.system(size: 18))
-                    }
-                    .padding(.leading, 30)
-                    VStack(){
-                        Text("Tanggal terakhir terlihat :")
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 15)
-                            .font(.system(size: 22))
-                        Text("14/05/2023")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.system(size: 18))
-                    }
-                    .padding(.leading, 30)
-                    ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Simpan Laporan") {
-                        HomeView()
-                    }
-                    .padding(.top, 70)
-                    
-                    ValidationButton(buttonIcon: "checkmark.square.fill", buttonText: "Sudah ditemukan") {
-                        HomeView()
-                    }
-                    
-                    Spacer()
                 }
+                .onAppear {
+                    fetchImageURL()
+                }
+
             }
         }
     }
+    
+    private func formatTimestamp(_ timestamp: Timestamp) -> String? {
+        let date = timestamp.dateValue()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "id_ID")
+        dateFormatter.dateStyle = .full
+        //            dateFormatter.timeStyle = .short      => waktu
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    func fetchImageURL() {
+        guard let imageIdentifier = report.imageIdentifier else {
+            print("Image identifier is nil")
+            return
+        }
+
+        let storageRef = Storage.storage().reference()
+        let imageRef = storageRef.child("images/\(imageIdentifier).jpg")
+        
+        imageRef.downloadURL { url, error in
+            if let error = error {
+                print("Failed to fetch image URL: \(error.localizedDescription)")
+                return
+            }
+            
+            imageURL = url
+        }
+    }
+
+    
 }
 
 struct ReportDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ReportDetailView()
+        ReportDetailView(report: Report(id: "1", petName: "Fluffy", petType: "Cat", petCharacteristics: [], petOwner: "Nael", ownersPhone: "12345678", lastLocation: "UC", timestamp: Timestamp(), lastDate: Date(), status: "Missing", imageIdentifier: ""))
     }
 }
