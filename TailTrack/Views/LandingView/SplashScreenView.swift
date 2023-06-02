@@ -16,7 +16,7 @@ struct SplashScreenView: View {
                     if self.loadComplete {
                         LandingPageView()
                     } else {
-                        Image("logo")
+                        Image("logo1024")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 300, height: 300)
