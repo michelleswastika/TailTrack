@@ -37,7 +37,8 @@ class FirestoreServices {
                 let timestamp = data["lastDate"] as? Timestamp ?? Timestamp(date: Date())
                 let lastDate = timestamp.dateValue()
                 let status = data["status"] as? String ?? ""
-                let report = Report(id: id, petName: petName, petType: petType, petCharacteristics: petCharacteristics ?? [""], petOwner: petOwner, ownersPhone: ownersPhone, lastLocation: lastLocation, lastDate: lastDate, status: status)
+                let imageIdentifier = data["imageIdentifier"] as? String ?? ""
+                let report = Report(id: id, petName: petName, petType: petType, petCharacteristics: petCharacteristics ?? [""], petOwner: petOwner, ownersPhone: ownersPhone, lastLocation: lastLocation, timestamp: timestamp, lastDate: lastDate, status: status, imageIdentifier: imageIdentifier)
                 reports.append(report)
             }
             
@@ -45,13 +46,17 @@ class FirestoreServices {
         }
     }
     
-    func addReport(petName: String, petType: String, petOwner: String, ownersPhone: String, lastLocation: String) {
+    func addReport(petName: String, petType: String, petCharacteristics: [String], petOwner: String, ownersPhone: String, lastLocation: String, lastDate: Date, status: String, imageIdentifier: String) {
             let docData: [String: Any] = [
                 "petName": petName,
                 "petType": petType,
+                "petCharacteristics": petCharacteristics,
                 "petOwner": petOwner,
                 "ownersPhone": ownersPhone,
-                "lastLocation": lastLocation
+                "lastLocation": lastLocation,
+                "lastDate": lastDate,
+                "status": status,
+                "imageIdentifier": imageIdentifier
             ]
             
             db.collection("Reports").addDocument(data: docData) { error in
