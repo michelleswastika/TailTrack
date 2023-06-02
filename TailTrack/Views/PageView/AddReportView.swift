@@ -10,11 +10,18 @@ import PhotosUI
 
 struct AddReportView: View {
     //    message error declaration
+<<<<<<< Updated upstream
     @State private var petNameError: String = ""
     @State private var petTypeError: String = ""
     @State private var ownerPhoneError: String = ""
     
     @State private var isTextFieldValid: Bool = true
+=======
+    @State private var showingAlert: Bool = false
+    
+    @State private var uploadInProgress = false
+    //    @State private var shouldNavigateToHome = false
+>>>>>>> Stashed changes
     
     @State private var newReport = Report.emptyReport
     @StateObject var imagePicker = ImagePicker()
