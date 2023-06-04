@@ -15,6 +15,11 @@ struct Placeholder: View {
     //    var placeholderText: String
     @Binding var placeholderText: String
     
+    @State private var isTextFieldValid: Bool = true
+    
+    @StateObject private var reportViewModel = ReportViewModel()
+    @State private var errorMessage: String = ""
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -25,8 +30,35 @@ struct Placeholder: View {
             HStack {
                 Image(systemName: placeholderIcon)
                 TextField(placeholderDescription, text: $placeholderText)
-                    .keyboardType(.phonePad)
+                    .if(placeholderTitle == "Nomor Telepon") { view in
+                            view.keyboardType(.phonePad)
+                        }
                     .autocorrectionDisabled(true)
+                    .onChange(of: placeholderText){ newValue in
+                        let validationResults =
+                        reportViewModel.validateTextField(newValue)
+                        isTextFieldValid = validationResults.isValid
+                        errorMessage = validationResults.errorMessage
+                    }
+                    .onReceive(placeholderText.publisher.collect()) {
+                        if placeholderTitle == "Nomor Telepon" {
+                            let trimmedTextPhone = String($0.prefix(10))
+                            if placeholderText != trimmedTextPhone{
+                                placeholderText = trimmedTextPhone
+                            }
+                        } else if placeholderTitle == "Nama Hewan" || placeholderTitle == "Jenis Hewan" || placeholderTitle == "Nama Pelapor"{
+                            let trimmedTextNameType = String($0.prefix(50))
+                            if placeholderText != trimmedTextNameType{
+                                placeholderText = trimmedTextNameType
+                            }
+                        } else if placeholderTitle == "Ciri-ciri" || placeholderTitle == "Lokasi Terakhir"{
+                            let trimmedTextLocation = String($0.prefix(250))
+                            if placeholderText != trimmedTextLocation{
+                                placeholderText = trimmedTextLocation
+                            }
+                        }
+                    }
+                
             }
             .padding()
             .background(
@@ -35,9 +67,14 @@ struct Placeholder: View {
                     .foregroundColor(.black)
                 
             )
+            if !isTextFieldValid {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .font(.footnote)
+                    .padding(.top, 4)
+            }
         }
         .padding(.horizontal)
-        
     }
 }
 

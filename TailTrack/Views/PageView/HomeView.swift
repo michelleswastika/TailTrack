@@ -53,7 +53,9 @@ struct HomeView: View {
                                     }
                                 }
                             } else {
-                                Text("No image available")
+                                Image("logo1024")
+                                    .resizable()
+                                    .frame(width: 62, height: 60)
                             }
                             
                             VStack (alignment: .leading) {

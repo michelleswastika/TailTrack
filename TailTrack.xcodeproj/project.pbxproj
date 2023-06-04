@@ -14,6 +14,7 @@
 		043D40792A1F2D1000D531EF /* LandingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D40782A1F2D1000D531EF /* LandingPageView.swift */; };
 		043D40802A1F4BB500D531EF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D407F2A1F4BB500D531EF /* HomeView.swift */; };
 		043D40822A2038C700D531EF /* Dummies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D40812A2038C700D531EF /* Dummies.swift */; };
+		0460C9972A2C3B2B00D738E1 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460C9962A2C3B2B00D738E1 /* View.swift */; };
 		04A4CE602A24823000AEFA01 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4CE5E2A24822F00AEFA01 /* FirestoreService.swift */; };
 		04A4CE612A24823000AEFA01 /* FirestoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4CE5F2A24823000AEFA01 /* FirestoreServices.swift */; };
 		04A4CE652A24827400AEFA01 /* ReportDetailAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A4CE622A24827400AEFA01 /* ReportDetailAdminView.swift */; };
@@ -67,6 +68,7 @@
 		043D40782A1F2D1000D531EF /* LandingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageView.swift; sourceTree = "<group>"; };
 		043D407F2A1F4BB500D531EF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		043D40812A2038C700D531EF /* Dummies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummies.swift; sourceTree = "<group>"; };
+		0460C9962A2C3B2B00D738E1 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		04A4CE5E2A24822F00AEFA01 /* FirestoreService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		04A4CE5F2A24823000AEFA01 /* FirestoreServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirestoreServices.swift; sourceTree = "<group>"; };
 		04A4CE622A24827400AEFA01 /* ReportDetailAdminView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportDetailAdminView.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				04A4CE5E2A24822F00AEFA01 /* FirestoreService.swift */,
 				04A4CE5F2A24823000AEFA01 /* FirestoreServices.swift */,
 				043D40812A2038C700D531EF /* Dummies.swift */,
+				0460C9962A2C3B2B00D738E1 /* View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				04A4CE602A24823000AEFA01 /* FirestoreService.swift in Sources */,
 				043D40802A1F4BB500D531EF /* HomeView.swift in Sources */,
 				04C899DD2A206FE800DCD6BF /* ImagePickerViewModel.swift in Sources */,
+				0460C9972A2C3B2B00D738E1 /* View.swift in Sources */,
 				043D40792A1F2D1000D531EF /* LandingPageView.swift in Sources */,
 				04F212042A26209E0020BB98 /* Placeholder.swift in Sources */,
 				204A81D32A20833700B79291 /* ReportDetailView.swift in Sources */,
