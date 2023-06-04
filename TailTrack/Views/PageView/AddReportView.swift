@@ -20,17 +20,15 @@ struct AddReportView: View {
     
     @State private var isTextFieldValid: Bool = true
     @State private var uploadInProgress = false
-    //    @State private var shouldNavigateToHome = false
     
-    //    @State private var newReport = Report.emptyReport
+    //  Define Class from Other Files
     @StateObject var imagePicker = ImagePicker()
     @StateObject private var reportViewModel = ReportViewModel()
     
-    @State var characteristic: String = ""
-    
-    //    @StateObject private var reportViewModel = ReportViewModel()
+    //  Variables for the database
     @State private var newPetName = ""
     @State private var newPetType = ""
+    @State var characteristic: String = ""
     @State private var newPetCharacteristics: [String] = []
     @State private var newPetOwner = ""
     @State private var newOwnersPhone = ""
@@ -55,17 +53,26 @@ struct AddReportView: View {
                         
                         Header(headerTitle: "Lapor Kehilangan", headerSubTitle: "Silakan isi laporan di bawah ini")
                         
+                        
+                        //                  ========= NAMA HEWAN =========
+                        
                         Placeholder(
                             placeholderTitle: "Nama Peliharaan",
                             placeholderIcon: "mail",
                             placeholderDescription: "Nama peliharaan Anda",
                             placeholderText: $newPetName)
                         
+                        
+                        //                  ========= JENIS HEWAN =========
+                        
                         Placeholder(
                             placeholderTitle: "Jenis Hewan",
                             placeholderIcon: "fish",
                             placeholderDescription: "Jenis peliharaan Anda beserta breed nya",
                             placeholderText: $newPetType)
+                        
+                        
+                        //                  ========= CIRI-CIRI =========
                         
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Ciri-Ciri:")
@@ -115,11 +122,17 @@ struct AddReportView: View {
                             }
                         }
                         
+                        
+                        //                  ========= NAMA PEMILIK =========
+                        
                         Placeholder(
                             placeholderTitle: "Nama Pemilik",
                             placeholderIcon: "person",
                             placeholderDescription: "Nama Anda",
                             placeholderText: $newPetOwner)
+                        
+                        
+                        //                  ========= NOMOR TELEPON =========
                         
                         Placeholder(
                             placeholderTitle: "Nomor Telepon",
@@ -127,16 +140,25 @@ struct AddReportView: View {
                             placeholderDescription: "Nomor telepon yang bisa dihubungi",
                             placeholderText: $newOwnersPhone)
                         
+                        
+                        //                  ========= LOKASI =========
+                        
                         Placeholder(
                             placeholderTitle: "Lokasi Terakhir Dilihat",
                             placeholderIcon: "map",
                             placeholderDescription: "Lokasi terakhir peliharaan Anda terlihat",
                             placeholderText: $newLastLocation)
                         
+                        
+                        //                  ========= TANGGAL =========
+                        
                         PlaceholderDate(
                             placeholderTitle: "Tanggal Terakhir Dilihat",
                             placeholderIcon: "calendar",
                             placeholderText: $newLastDate)
+                        
+                        
+                        //                  ========= GAMBAR =========
                         
                         VStack {
                             
@@ -180,13 +202,8 @@ struct AddReportView: View {
                         }
                         .padding()
                         
-                        //                        ButtonDestination(buttonIcon: "arrow.up.doc.fill", buttonText: "Ajukan Laporan") {
-                        //                            HomeView()
-                        //                        }
                         
-                        //                        ButtonDestination(buttonIcon: "newspaper.fill", buttonText: "Ajukan Laporan") {
-                        //                            HomeView()
-                        //                        }
+                        //                  ========= ADD BUTTON =========
                         
                         Button("Add Item") {
                             showingAlert = true

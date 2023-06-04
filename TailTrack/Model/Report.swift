@@ -22,7 +22,6 @@ struct Report: Identifiable {
     var lastDate: Date
     var status: String
     let imageIdentifier: String?
-//    var petPhoto: String
 }
 
 

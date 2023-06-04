@@ -10,7 +10,6 @@ import SwiftUI
 struct PlaceholderDate: View {
     var placeholderTitle: String
     var placeholderIcon: String
-    //    var placeholderText: String
     @Binding var placeholderText: Date
     
     var body: some View {

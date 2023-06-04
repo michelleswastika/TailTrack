@@ -56,11 +56,6 @@ struct ReportDetailView: View {
                         } else {
                             Text("No image available")
                         }
-
-                        
-//                        Image("vera sip")
-//                            .resizable()
-//                            .frame(width: 220, height: 220)
                         
                         
                         //    PET CHARACTERISTICS
@@ -117,6 +112,8 @@ struct ReportDetailView: View {
                                 contentText: report.status)
                         }
                         
+                        //     BUTTON
+                        
                         VStack {
                             
                             ValidationButton(buttonIcon: "checkmark.square.fill", buttonText: "Sudah ditemukan") {
@@ -136,6 +133,10 @@ struct ReportDetailView: View {
         }
     }
     
+    
+    //     TIMESTAMP TO STRING
+    //     Value for Date is Timestamp, but here we need it to be a String value in order to put it on a Text(), thus we change the data type
+    
     private func formatTimestamp(_ timestamp: Timestamp) -> String? {
         let date = timestamp.dateValue()
         
@@ -146,6 +147,9 @@ struct ReportDetailView: View {
         
         return dateFormatter.string(from: date)
     }
+    
+    
+    //     FETCH IMAGE FROM FIREBASE STORAGE
     
     func fetchImageURL() {
         guard let imageIdentifier = report.imageIdentifier else {
